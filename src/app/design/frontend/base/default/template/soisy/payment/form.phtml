@@ -1,0 +1,20 @@
+<ul class="form-list" id="payment_form_<?php echo $this->getMethodCode() ?>" style="display:none;">
+    <li>
+        <label for="fiscal_code" class="required"><em>*</em><?php echo $this->__('Fiscal Code') ?></label>
+        <div class="input-box">
+            <input type="text" id="fiscal_code" name="payment[fiscal_code]" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Fiscal code')) ?>" class="input-text required-entry" value="<?php echo $this->escapeHtml($this->getInfoData('fiscal_code')) ?>" />
+        </div>
+    </li>
+    <li>
+        <label for="mobile_phone" class="required"><em>*</em><?php echo $this->__('Mobile Phone') ?></label>
+        <div class="input-box">
+            <input type="text" id="mobile_phone" name="payment[mobile_phone]" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Mobile Phone')) ?>" class="input-text required-entry" value="<?php echo $this->escapeHtml($this->getInfoData('mobile_phone')) ?>" />
+        </div>
+    </li>
+    <li>
+        <label for="civic_number" class="required"><em>*</em><?php echo $this->__('Civic Number') ?></label>
+        <div class="input-box">
+            <input type="text" id="civic_number" name="payment[civic_number]" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Civic Number')) ?>" class="input-text required-entry" value="<?php echo $this->escapeHtml($this->getInfoData('civic_number')) ?>" />
+        </div>
+    </li>
+</ul>

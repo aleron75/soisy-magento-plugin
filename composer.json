@@ -1,0 +1,12 @@
+{
+    "name": "bitbull/magento-soisy-payment",
+    "license": "MIT",
+    "type": "magento-module",
+    "description": "Soisy payment integration for Magento",
+    "require": {
+        "magento-hackathon/magento-composer-installer": "*"
+    },
+    "authors": [
+        { "name": "Gennaro Vietri", "email": "gennaro.vietri@bitbull.it" }
+    ]
+}

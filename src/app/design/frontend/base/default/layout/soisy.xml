@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <checkout_onepage_success>
+        <reference name="before_body_end" before="-">
+            <block type="soisy/redirect" name="soisy_redirect" as="soisy_redirect" />
+        </reference>
+    </checkout_onepage_success>
+</layout>
