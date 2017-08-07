@@ -45,10 +45,10 @@ class Bitbull_Soisy_Model_Soisy extends Mage_Payment_Model_Method_Abstract
             'firstname'   => $billingAddress->getFirstname(),
             'fiscalCode'  => $data->getFiscalCode(),
             'mobilePhone' => $data->getMobilePhone(),
-            'city'        => $billingAddress->getCity(),
-            'address'     => $billingAddress->getStreetFull(),
-            'province'    => $billingAddress->getRegion(),
-            'postalCode'  => $billingAddress->getPostcode(),
+            'city'        => $data->getCity(),
+            'address'     => $data->getAddress(),
+            'province'    => $data->getRegionId(),
+            'postalCode'  => $data->getPostcode(),
             'civicNumber' => $data->getCivicNumber(),
         ]);
 

@@ -1,25 +1,88 @@
 <ul class="form-list" id="payment_form_<?php echo $this->getMethodCode() ?>" style="display:none;">
     <li>
-        <label for="fiscal_code" class="required"><em>*</em><?php echo $this->__('Fiscal Code') ?></label>
+        <label for="soisy_address" class="required"><em>*</em><?php echo $this->__('Address') ?></label>
         <div class="input-box">
-            <input type="text" id="fiscal_code" name="payment[fiscal_code]" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Fiscal code')) ?>" class="input-text required-entry" value="<?php echo $this->escapeHtml($this->getInfoData('fiscal_code')) ?>" />
+            <input type="text" id="soisy_address" name="payment[address]"
+                   title="<?php echo Mage::helper('core')->quoteEscape($this->__('Address')) ?>"
+                   class="input-text required-entry"
+                   value="<?php echo $this->escapeHtml($this->getBillingAddress()->getStreetFull()) ?>"/>
         </div>
     </li>
     <li>
-        <label for="mobile_phone" class="required"><em>*</em><?php echo $this->__('Mobile Phone') ?></label>
+        <label for="soisy_civic_number" class="required"><em>*</em><?php echo $this->__('Civic Number') ?></label>
         <div class="input-box">
-            <input type="text" id="mobile_phone" name="payment[mobile_phone]" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Mobile Phone')) ?>" class="input-text required-entry" value="<?php echo $this->escapeHtml($this->getInfoData('mobile_phone')) ?>" />
+            <input type="text" id="soisy_civic_number" name="payment[civic_number]"
+                   title="<?php echo Mage::helper('core')->quoteEscape($this->__('Civic Number')) ?>"
+                   class="input-text required-entry"
+                   value="<?php echo $this->escapeHtml($this->getInfoData('civic_number')) ?>"/>
         </div>
     </li>
     <li>
-        <label for="civic_number" class="required"><em>*</em><?php echo $this->__('Civic Number') ?></label>
+        <label for="soisy_postal_code" class="required"><em>*</em><?php echo $this->__('Zip/Postal Code') ?></label>
         <div class="input-box">
-            <input type="text" id="civic_number" name="payment[civic_number]" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Civic Number')) ?>" class="input-text required-entry" value="<?php echo $this->escapeHtml($this->getInfoData('civic_number')) ?>" />
+            <input type="text" id="soisy_postal_code" name="payment[postcode]"
+                   title="<?php echo $this->quoteEscape($this->__('Zip/Postal Code')) ?>"
+                   class="input-text required-entry validate-zip-international <?php echo $this->helper('customer/address')->getAttributeValidationClass('postcode') ?>"
+                   value="<?php echo $this->escapeHtml($this->getBillingAddress()->getPostcode()) ?>"/>
         </div>
     </li>
     <li>
-        <input type="checkbox" id="terms_and_conditions" name="payment[terms_and_conditions]"  class="required-entry checkbox"
-                   title="<?php echo $this->__('Terms and Conditions') ?>" value="0" />
-        <label for="terms_and_conditions" class="required"><em>*</em><?php echo $this->__(' I Agree submitting the info to Soisy page') ?> <?php if($link = Mage::getStoreConfig(Bitbull_Soisy_Helper_Data::XML_PATH_TERMS_AND_CONDITIONS)): ?><a style="margin-top: 0;" target="_blank" href="<?php echo $link ?>"><?php echo $this->__('Reed more') ?></a> <?php endif; ?></label>
+        <label for="soisy_city" class="required"><em>*</em><?php echo $this->__('City') ?></label>
+        <div class="input-box">
+            <input type="text" id="soisy_city" name="payment[city]"
+                   title="<?php echo Mage::helper('core')->quoteEscape($this->__('City')) ?>"
+                   class="input-text required-entry"
+                   value="<?php echo $this->escapeHtml(($this->getInfoData('city')) ? $this->escapeHtml($this->getInfoData('city')) : $this->getBillingAddress()->getCity()) ?>"/>
+        </div>
+    </li>
+    <li>
+        <label for="soisy_region_id" class="required"><em>*</em><?php echo $this->__('State/Province') ?></label>
+        <div class="input-box">
+            <input type="text" id="soisy_region_id" name="payment[region_id]"
+                   title="<?php echo $this->quoteEscape($this->__('State/Province')) ?>"
+                   class="input-text required-entry"
+                   value="<?php echo $this->escapeHtml($this->getBillingAddress()->getRegion()) ?>"/>
+        </div>
+    </li>
+    <li>
+        <label for="soisy_mobile_phone" class="required"><em>*</em><?php echo $this->__('Mobile Phone') ?></label>
+        <div class="input-box">
+            <input type="text" id="soisy_mobile_phone" name="payment[mobile_phone]"
+                   title="<?php echo Mage::helper('core')->quoteEscape($this->__('Mobile Phone')) ?>"
+                   class="input-text required-entry"
+                   value="<?php echo ($this->getInfoData('mobile_phone')) ? $this->escapeHtml($this->getInfoData('mobile_phone')) : $this->getBillingAddress()->getTelephone() ?>"/>
+        </div>
+    </li>
+
+    <?php if ($this->helper('customer/address')->isVatAttributeVisible()): ?>
+        <li>
+            <label for="soisy_vat_id"><?php echo $this->__('VAT Number') ?></label>
+
+            <div class="input-box">
+                <input type="text" id="soisy_vat_id" name="payment[vat_id]"
+                       value="<?php echo $this->escapeHtml($this->getBillingAddress()->getVatId()) ?>"
+                       title="<?php echo Mage::helper('core')->quoteEscape($this->__('VAT Number')) ?>"
+                       class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('vat_id') ?>"/>
+            </div>
+        </li>
+    <?php endif; ?>
+
+    <li>
+        <label for="soisy_fiscal_code" class="required"><em>*</em><?php echo $this->__('Fiscal Code') ?></label>
+        <div class="input-box">
+            <input type="text" id="soisy_fiscal_code" name="payment[fiscal_code]"
+                   title="<?php echo Mage::helper('core')->quoteEscape($this->__('Fiscal code')) ?>"
+                   class="input-text required-entry"
+                   value="<?php echo $this->escapeHtml($this->getInfoData('fiscal_code')) ?>"/>
+        </div>
+    </li>
+    <li>
+        <input type="checkbox" id="soisy_terms_and_conditions" name="payment[terms_and_conditions]"
+               class="required-entry checkbox"
+               title="<?php echo $this->__('Terms and Conditions') ?>" value="0"/>
+        <label for="soisy_terms_and_conditions"
+               class="required"><em>*</em><?php echo $this->__(' I Agree submitting the info to Soisy page') ?> <?php if ($link = Mage::getStoreConfig(Bitbull_Soisy_Helper_Data::XML_PATH_TERMS_AND_CONDITIONS)): ?>
+                <a style="margin-top: 0;" target="_blank"
+                   href="<?php echo $link ?>"><?php echo $this->__('Reed more') ?></a> <?php endif; ?></label>
     </li>
 </ul>
