@@ -12,6 +12,8 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
 
     const XML_PATH_SHOP_ID = 'payment/soisy/shop_id';
 
+    const XML_PATH_TERMS_AND_CONDITIONS = 'payment/soisy/terms_and_conditions';
+
     public function isEnabled($store = null)
     {
         return Mage::getStoreConfigFlag(self::XML_PATH_ENABLE_SEARCH, $store);
