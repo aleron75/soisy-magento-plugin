@@ -48,7 +48,7 @@ class Bitbull_Soisy_Model_Soisy extends Mage_Payment_Model_Method_Abstract
             'mobilePhone' => $data->getMobilePhone(),
             'city' => $data->getCity(),
             'address' => $data->getAddress(),
-            'province' => $data->getRegionId(),
+            'province' => ($regionCode = Mage::helper('soisy')->getRegionById($data)) ? $regionCode : $data->getRegion(),
             'postalCode' => $data->getPostcode(),
             'civicNumber' => $data->getCivicNumber(),
         ];
@@ -56,6 +56,8 @@ class Bitbull_Soisy_Model_Soisy extends Mage_Payment_Model_Method_Abstract
         $tokenResponse = $this->_client->getToken($params);
 
         Mage::getSingleton('checkout/session')->setData('soisy_token', $tokenResponse->getToken());
+
+        $params['region_id'] = $data->getRegionId();
 
         $this->getInfoInstance()
             ->setAdditionalInformation($params);
