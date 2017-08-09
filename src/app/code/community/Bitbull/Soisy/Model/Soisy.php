@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @category Bitbull
  * @package  Bitbull_Soisy
@@ -10,10 +11,10 @@ class Bitbull_Soisy_Model_Soisy extends Mage_Payment_Model_Method_Abstract
 
     /**
      * @var Bitbull_Soisy_Client
-    */
+     */
     protected $_client = null;
-    
-    protected $_code  = 'soisy';
+
+    protected $_code = 'soisy';
     protected $_formBlockType = 'soisy/form_soisy';
     protected $_infoBlockType = 'soisy/info_soisy';
 
@@ -21,7 +22,7 @@ class Bitbull_Soisy_Model_Soisy extends Mage_Payment_Model_Method_Abstract
     {
         $this->_client = Mage::helper('soisy')->getClient();
     }
-    
+
     /**
      * Assign data to info model instance
      *
@@ -38,26 +39,26 @@ class Bitbull_Soisy_Model_Soisy extends Mage_Payment_Model_Method_Abstract
         $quote = $paymentInfo->getQuote();
         $billingAddress = $quote->getBillingAddress();
 
-        $tokenResponse = $this->_client->getToken([
-            'email'       => $billingAddress->getEmail(),
-            'amount'      => $quote->getGrandTotal() * 100,
-            'lastname'    => $billingAddress->getLastname(),
-            'firstname'   => $billingAddress->getFirstname(),
-            'fiscalCode'  => $data->getFiscalCode(),
+        $params = [
+            'email' => $billingAddress->getEmail(),
+            'amount' => $quote->getGrandTotal() * 100,
+            'lastname' => $billingAddress->getLastname(),
+            'firstname' => $billingAddress->getFirstname(),
+            'fiscalCode' => $data->getFiscalCode(),
             'mobilePhone' => $data->getMobilePhone(),
-            'city'        => $data->getCity(),
-            'address'     => $data->getAddress(),
-            'province'    => $data->getRegionId(),
-            'postalCode'  => $data->getPostcode(),
+            'city' => $data->getCity(),
+            'address' => $data->getAddress(),
+            'province' => $data->getRegionId(),
+            'postalCode' => $data->getPostcode(),
             'civicNumber' => $data->getCivicNumber(),
-        ]);
+        ];
+
+        $tokenResponse = $this->_client->getToken($params);
 
         Mage::getSingleton('checkout/session')->setData('soisy_token', $tokenResponse->getToken());
 
         $this->getInfoInstance()
-            ->setFiscalCode($data->getData('fiscal_code'))
-            ->setMobilePhone($data->getData('mobile_phone'))
-            ->setCivicNumber($data->getData('civic_number'));
+            ->setAdditionalInformation($params);
 
         return $this;
     }

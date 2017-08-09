@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @category Bitbull
+ * @package  Bitbull_Soisy
+ * @author   Martins Saukums <martins.saukums@bitbull.it>
+ */
 class Bitbull_Soisy_Block_Info_Soisy extends Mage_Payment_Block_Info
 {
 
@@ -13,57 +18,29 @@ class Bitbull_Soisy_Block_Info_Soisy extends Mage_Payment_Block_Info
     }
 
     /**
-     * @var $_additionalDataArray
+     * @var array $_additionalInformationArray
      */
-    protected $_additionalDataArray = [];
-
-    /**
-     * @var $_fiscal_code
-     */
-    protected $_fiscal_code;
+    protected $_additionalInformationArray = [];
 
     /**
      * @return array
      */
-    protected function getAdditionalData()
+    protected function getAdditionalInformation()
     {
-        if (is_null($this->_additionalDataArray)) {
-            $this->_additionalDataArray = $this->getInfo()->getData('additional_information');
+        if (empty($this->_additionalInformationArray)) {
+            $this->_additionalInformationArray = $this->getInfo()->getData('additional_information');
         }
 
-        return $this->_additionalDataArray;
+        return $this->_additionalInformationArray;
     }
 
     /**
      * @param $param
      * @return string|null
      */
-    protected function getParam($param)
+    public function getAdditionalInformationValueByKey($param)
     {
-        return (array_key_exists($param, $this->getAdditionalData())) ? $this->_additionalDataArray[$param] : null;
+        return (array_key_exists($param, $this->getAdditionalInformation())) ? $this->_additionalInformationArray[$param] : null;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getFiscalCode()
-    {
-        return $this->getParam('fiscal_code');
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getMobilePhone()
-    {
-        return $this->getParam('mobile_phone');
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getCivicNumber()
-    {
-        return $this->getParam('civic_number');
-    }
 }
