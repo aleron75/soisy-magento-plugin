@@ -54,4 +54,11 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
             return Mage::getModel('directory/region')->loadByCode($code)->getId();
         }
     }
+
+    public function formatProductInfoLoanQuoteBlock($obj)
+    {
+
+        return __('You can also pay installments, eg € %1$s, in %2$s months, with a total cost of € %3$s and TAEG %4$s.
+Just choose "Pay with Soisy" when choosing the payment method ',$obj->instalmentAmount,Mage::getStoreConfig('payment/soisy/instalments', Mage::app()->getStore()),$obj->totalRepaid,$obj->apr);
+    }
 }

@@ -2,7 +2,14 @@
 <layout version="0.1.0">
     <checkout_onepage_success>
         <reference name="before_body_end" before="-">
-            <block type="soisy/redirect" name="soisy_redirect" as="soisy_redirect" />
+            <block type="soisy/redirect" name="soisy_redirect" as="soisy_redirect"/>
         </reference>
     </checkout_onepage_success>
+
+    <catalog_product_view>
+        <reference name="product.info.additional">
+            <block type="soisy/catalog_product_loanQuote" name="soisy_loan_quote" as="soisy_loan_quote"
+                   template="soisy/catalog/product/loan_quote.phtml"/>
+        </reference>
+    </catalog_product_view>
 </layout>

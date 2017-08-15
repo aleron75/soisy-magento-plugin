@@ -48,6 +48,15 @@
 				</observers>
 			</checkout_onepage_controller_success_action>
 		</events>
+		<routers>
+			<soisy>
+				<use>standard</use>
+				<args>
+					<frontName>soisy</frontName>
+					<module>Bitbull_Soisy</module>
+				</args>
+			</soisy>
+		</routers>
 	</frontend>
 	<default>
 		<payment>
@@ -58,6 +67,9 @@
 				<title>Finanziamento con Soisy</title>
 				<allowspecific>0</allowspecific>
 				<group>offline</group>
+				<instalments>12</instalments>
+				<loan_quote_placement>price-box</loan_quote_placement>
+				<informationa_about_loan>min</informationa_about_loan>
 			</soisy>
 		</payment>
 	</default>

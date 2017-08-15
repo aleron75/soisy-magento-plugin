@@ -77,6 +77,17 @@ class Bitbull_Soisy_Client
     }
 
     /**
+     * @param array $params
+     * @return stdClass
+     */
+    public function getAmount(array $params)
+    {
+        $rawResponse = $this->_doRequest('/loan-quotes', self::HTTP_METHOD_GET, $params);
+
+        return $rawResponse;
+    }
+
+    /**
      * Perform a search for suggestions
      *
      * @param array $params
@@ -167,7 +178,7 @@ class Bitbull_Soisy_Client
             $e = new Bitbull_Soisy_Exception($message);
             $e->setValidationMessages($validationMessages);
 
-            throw $e;
+            return $e->getValidationMessages();
 
         } else {
             $response = json_decode($output);
@@ -193,8 +204,6 @@ class Bitbull_Soisy_Client
                 }
             }
         }
-
-        Mage::log($validationMessages);
 
         return $validationMessages;
     }
