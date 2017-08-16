@@ -7,6 +7,8 @@
  */
 class Bitbull_Soisy_Model_Soisy extends Mage_Payment_Model_Method_Abstract
 {
+    const METHOD_CODE = 'soisy';
+
     protected $_canUseInternal = false;
 
     /**
@@ -14,7 +16,7 @@ class Bitbull_Soisy_Model_Soisy extends Mage_Payment_Model_Method_Abstract
      */
     protected $_client = null;
 
-    protected $_code = 'soisy';
+    protected $_code = self::METHOD_CODE;
     protected $_formBlockType = 'soisy/form_soisy';
     protected $_infoBlockType = 'soisy/info_soisy';
 
