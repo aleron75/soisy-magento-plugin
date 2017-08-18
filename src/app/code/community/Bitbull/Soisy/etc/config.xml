@@ -69,7 +69,7 @@
 				<group>offline</group>
 				<instalments>12</instalments>
 				<loan_quote_placement>price-box</loan_quote_placement>
-				<informationa_about_loan>min</informationa_about_loan>
+				<information_about_loan>min</information_about_loan>
 			</soisy>
 		</payment>
 	</default>

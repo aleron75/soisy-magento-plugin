@@ -33,9 +33,9 @@ class Bitbull_Soisy_LoanQuoteController extends Mage_Core_Controller_Front_Actio
 
                 $amountResponse = $this->_client->getAmount(['amount' => $this->getRequest()->getPost('amount'), 'instalments' => $instalments]);
 
-                if ($amountResponse && isset($amountResponse->{Mage::getStoreConfig('payment/soisy/informationa_about_loan')})) {
+                if ($amountResponse && isset($amountResponse->{Mage::getStoreConfig('payment/soisy/information_about_loan')})) {
                     $this->getResponse()
-                        ->setBody(Mage::helper('soisy')->formatProductInfoLoanQuoteBlock($amountResponse->{Mage::getStoreConfig('payment/soisy/informationa_about_loan')}));
+                        ->setBody(Mage::helper('soisy')->formatProductInfoLoanQuoteBlock($amountResponse->{Mage::getStoreConfig('payment/soisy/information_about_loan')}));
                 }
             }
         }

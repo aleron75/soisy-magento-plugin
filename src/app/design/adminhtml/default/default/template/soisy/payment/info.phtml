@@ -1,0 +1,15 @@
+<?php
+/**
+ * @var $this Bitbull_Soisy_Block_Info_Soisy
+ */
+?>
+<p><?php echo $this->escapeHtml($this->getMethod()->getTitle()) ?></p>
+<p><strong><?php echo $this->__('Fiscal Code:') ?></strong> <span class="nobr"><?php echo $this->escapeHtml($this->getAdditionalInformationValueByKey('fiscalCode')) ?></span></p>
+<p><strong><?php echo $this->__('Address:') ?></strong> <span class="nobr"><?php echo $this->escapeHtml($this->getAdditionalInformationValueByKey('address')) ?></span></p>
+<p><strong><?php echo $this->__('Civic Number:') ?></strong> <span class="nobr"><?php echo $this->escapeHtml($this->getAdditionalInformationValueByKey('civicNumber')) ?></span></p>
+<p><strong><?php echo $this->__('City:') ?></strong> <span class="nobr"><?php echo $this->escapeHtml($this->getAdditionalInformationValueByKey('city')) ?></span></p>
+<p><strong><?php echo $this->__('State/Province:') ?></strong> <span class="nobr"><?php echo $this->escapeHtml($this->getAdditionalInformationValueByKey('province')) ?></span></p>
+<p><strong><?php echo $this->__('Zip/Postal Code:') ?></strong> <span class="nobr"><?php echo $this->escapeHtml($this->getAdditionalInformationValueByKey('postalCode')) ?></span></p>
+<p><strong><?php echo $this->__('First Name:') ?></strong> <span class="nobr"><?php echo $this->escapeHtml($this->getAdditionalInformationValueByKey('firstname')) ?></span></p>
+<p><strong><?php echo $this->__('Last Name:') ?></strong> <span class="nobr"><?php echo $this->escapeHtml($this->getAdditionalInformationValueByKey('lastname')) ?></span></p>
+<?php echo $this->getChildHtml()?>

@@ -1,5 +1,6 @@
 src/app/code/community/Bitbull/Soisy/      app/code/community/Bitbull/Soisy/
 src/app/etc/modules/Bitbull_Soisy.xml      app/etc/modules/Bitbull_Soisy.xml
+src/app/design/adminhtml/default/default/template/soisy app/design/adminhtml/default/default/template/soisy
 src/app/design/frontend/base/default/template/soisy   app/design/frontend/base/default/template/soisy
 src/app/design/frontend/base/default/layout/soisy.xml   app/design/frontend/base/default/layout/soisy.xml
 src/lib/Bitbull/Soisy   lib/Bitbull/Soisy

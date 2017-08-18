@@ -99,7 +99,7 @@
                             <show_in_store>1</show_in_store>
                             <comment>Choose a HTML class to append Loan Quote block in product page</comment>
                         </loan_quote_placement>
-                        <informationa_about_loan  translate="label">
+                        <information_about_loan  translate="label">
                             <label>Information about loan</label>
                             <frontend_type>select</frontend_type>
                             <source_model>soisy/system_config_source_nodes</source_model>
@@ -107,7 +107,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                        </informationa_about_loan>
+                        </information_about_loan>
                         <min_order_total translate="label">
                             <label>Minimum Order Total</label>
                             <frontend_type>text</frontend_type>
