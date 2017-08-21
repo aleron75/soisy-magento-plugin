@@ -9,13 +9,19 @@ class Bitbull_Soisy_Block_Redirect extends Mage_Core_Block_Template
     /**
      * @var Bitbull_Soisy_Client
      */
-    protected $_client = null;
+    protected $_client;
+
+    /**
+     * @var Mage_Checkout_Model_Session
+     */
+    protected $_session;
 
     protected function _construct()
     {
         parent::_construct();
 
         $this->_client = Mage::helper('soisy')->getClient();
+        $this->_session = Mage::getSingleton('checkout/session');
 
         $this->setTemplate('soisy/redirect.phtml');
     }
@@ -27,10 +33,10 @@ class Bitbull_Soisy_Block_Redirect extends Mage_Core_Block_Template
      */
     public function getRedirectUrl()
     {
-        // @todo take from the order
-        $token = Mage::getSingleton('checkout/session')->getData('soisy_token');
+        $token = $this->_session->getData('soisy_token');
+        $this->_session->unsetData('soisy_token');
 
-        return $this->_client->getRedirectUrl($token);
+        return ($token) ? $this->_client->getRedirectUrl($token) : null;
     }
 
     /**

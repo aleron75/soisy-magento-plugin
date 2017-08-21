@@ -31,7 +31,7 @@ class Bitbull_Soisy_LoanQuoteController extends Mage_Core_Controller_Front_Actio
             if ($this->getRequest()->getPost('amount') >= Mage::getStoreConfig('payment/soisy/min_order_total', Mage::app()->getStore())) {
                 $this->_client = Mage::helper('soisy')->getClient();
 
-                $amountResponse = $this->_client->getAmount(['amount' => $this->getRequest()->getPost('amount'), 'instalments' => $instalments]);
+                $amountResponse = $this->_client->getAmount(['amount' => $this->getRequest()->getPost('amount') * 100, 'instalments' => $instalments]);
 
                 if ($amountResponse && isset($amountResponse->{Mage::getStoreConfig('payment/soisy/information_about_loan')})) {
                     $this->getResponse()

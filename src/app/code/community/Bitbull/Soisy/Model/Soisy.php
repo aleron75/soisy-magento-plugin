@@ -57,12 +57,15 @@ class Bitbull_Soisy_Model_Soisy extends Mage_Payment_Model_Method_Abstract
 
         $tokenResponse = $this->_client->getToken($params);
 
-        Mage::getSingleton('checkout/session')->setData('soisy_token', $tokenResponse->getToken());
-
-        $params['region_id'] = $data->getRegionId();
-
-        $this->getInfoInstance()
-            ->setAdditionalInformation($params);
+        if ($tokenResponse->getToken()) {
+            Mage::getSingleton('checkout/session')->setData('soisy_token', $tokenResponse->getToken());
+            $params['region_id'] = $data->getRegionId();
+            $this->getInfoInstance()
+                ->setAdditionalInformation($params);
+        } else {
+            $this->_client->_logger->log('Error while trying to complete payment');
+            Mage::throwException(Mage::helper('payment')->__('Error while trying to complete payment'));
+        }
 
         return $this;
     }
