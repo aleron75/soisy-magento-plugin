@@ -8,7 +8,7 @@
             <input type="text" id="soisy_address" name="payment[address]"
                    title="<?php echo Mage::helper('core')->quoteEscape($this->__('Address')) ?>"
                    class="input-text required-entry"
-                   value="<?php echo $this->escapeHtml(($this->getAdditionalInformation('address')) ? $this->escapeHtml($this->getAdditionalInformation('address')) : $this->getBillingAddress()->getStreetFull()) ?>"/>
+                   value="<?php echo $this->escapeHtml(($this->getAdditionalInformation('address')) ? $this->getAdditionalInformation('address') : Mage::helper('soisy')->getBillingAddressWithoutCivicNumber($this->getBillingAddress()->getStreetFull())) ?>"/>
         </div>
     </li>
     <li>
@@ -17,7 +17,7 @@
             <input type="text" id="soisy_civic_number" name="payment[civic_number]"
                    title="<?php echo Mage::helper('core')->quoteEscape($this->__('Civic Number')) ?>"
                    class="input-text required-entry"
-                   value="<?php echo $this->escapeHtml($this->getAdditionalInformation('civicNumber')) ?>"/>
+                   value="<?php echo $this->escapeHtml( ($this->getAdditionalInformation('civicNumber')) ? $this->getAdditionalInformation('civicNumber') : Mage::helper('soisy')->getCivicFromBillingAddress($this->getBillingAddress()->getStreetFull()) ) ?>"/>
         </div>
     </li>
     <li>
@@ -26,7 +26,7 @@
             <input type="text" id="soisy_postal_code" name="payment[postcode]"
                    title="<?php echo $this->quoteEscape($this->__('Zip/Postal Code')) ?>"
                    class="input-text required-entry validate-zip-international <?php echo $this->helper('customer/address')->getAttributeValidationClass('postcode') ?>"
-                   value="<?php echo $this->escapeHtml(($this->getAdditionalInformation('postalCode')) ? $this->escapeHtml($this->getAdditionalInformation('postalCode')) : $this->getBillingAddress()->getPostcode()) ?>"/>
+                   value="<?php echo $this->escapeHtml(($this->getAdditionalInformation('postalCode')) ? $this->getAdditionalInformation('postalCode') : $this->getBillingAddress()->getPostcode()) ?>"/>
         </div>
     </li>
     <li>
@@ -35,7 +35,7 @@
             <input type="text" id="soisy_city" name="payment[city]"
                    title="<?php echo Mage::helper('core')->quoteEscape($this->__('City')) ?>"
                    class="input-text required-entry"
-                   value="<?php echo $this->escapeHtml(($this->escapeHtml($this->getAdditionalInformation('city')) ? $this->escapeHtml($this->getAdditionalInformation('city')) : $this->getBillingAddress()->getCity())) ?>"/>
+                   value="<?php echo $this->escapeHtml($this->getAdditionalInformation('city') ? $this->getAdditionalInformation('city') : $this->getBillingAddress()->getCity()) ?>"/>
         </div>
     </li>
     <li>
@@ -64,7 +64,7 @@
             <input type="text" id="soisy_mobile_phone" name="payment[mobile_phone]"
                    title="<?php echo Mage::helper('core')->quoteEscape($this->__('Mobile Phone')) ?>"
                    class="input-text required-entry"
-                   value="<?php echo $this->escapeHtml(($this->getAdditionalInformation('mobilePhone')) ? $this->escapeHtml($this->getAdditionalInformation('mobilePhone')) : $this->getBillingAddress()->getTelephone()) ?>"/>
+                   value="<?php echo $this->escapeHtml(($this->getAdditionalInformation('mobilePhone')) ? $this->getAdditionalInformation('mobilePhone') : $this->getBillingAddress()->getTelephone()) ?>"/>
         </div>
     </li>
 

@@ -14,6 +14,8 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
 
     const XML_PATH_TERMS_AND_CONDITIONS = 'payment/soisy/terms_and_conditions';
 
+    const PATTERN = "/^([-\p{L}.'0-9 ]*?)(?: ([0-9]*))?$/u";
+
     public function isEnabled($store = null)
     {
         return Mage::getStoreConfigFlag(self::XML_PATH_ENABLE_SEARCH, $store);
@@ -47,6 +49,11 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
         }
     }
 
+    /**
+     * Get region by region code
+     * @param $code
+     * @return mixed
+     */
     public function getRegionByCode($code)
     {
         if ($code) {
@@ -55,6 +62,41 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
         }
     }
 
+    /**
+     * Get billing address without civic number
+     * @param $address
+     * @return mixed
+     */
+    public function getBillingAddressWithoutCivicNumber($address)
+    {
+        $matches = [];
+        preg_match(self::PATTERN, $address, $matches);
+
+        if(isset($matches[1])) {
+            return $matches[1];
+        }
+    }
+
+    /**
+     * Get civic number from billing address
+     * @param $address
+     * @return mixed
+     */
+    public function getCivicFromBillingAddress($address)
+    {
+        $matches = [];
+        preg_match(self::PATTERN, $address, $matches);
+
+        if(isset($matches[2])) {
+            return $matches[2];
+        }
+    }
+
+    /**
+     * Format output message for soisy product loan block
+     * @param $obj
+     * @return string
+     */
     public function formatProductInfoLoanQuoteBlock($obj)
     {
 
