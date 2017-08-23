@@ -72,7 +72,7 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
         $matches = [];
         preg_match(self::PATTERN, $address, $matches);
 
-        if(isset($matches[1])) {
+        if (isset($matches[1])) {
             return $matches[1];
         }
     }
@@ -87,7 +87,7 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
         $matches = [];
         preg_match(self::PATTERN, $address, $matches);
 
-        if(isset($matches[2])) {
+        if (isset($matches[2])) {
             return $matches[2];
         }
     }
@@ -99,8 +99,13 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function formatProductInfoLoanQuoteBlock($obj)
     {
+        $variables = array(
+            '{INSTALMENT_AMOUNT}' => $obj->instalmentAmount / 100,
+            '{INSTALMENT_PERIOD}' => Mage::getStoreConfig('payment/soisy/instalments', Mage::app()->getStore()),
+            '{TOTAL_REPAID}' => $obj->totalRepaid / 100,
+            '{TAEG}' => $obj->apr,
+        );
 
-        return __('You can also pay installments, eg € %1$s, in %2$s months, with a total cost of € %3$s and TAEG %4$s.
-Just choose "Pay with Soisy" when choosing the payment method ',$obj->instalmentAmount,Mage::getStoreConfig('payment/soisy/instalments', Mage::app()->getStore()),$obj->totalRepaid,$obj->apr);
+        return strtr(Mage::getStoreConfig('payment/soisy/loan_quote_text', Mage::app()->getStore()), $variables);
     }
 }
