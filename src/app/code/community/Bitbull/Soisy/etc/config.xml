@@ -70,7 +70,7 @@
 				<instalments>12</instalments>
 				<loan_quote_placement>price-box</loan_quote_placement>
 				<information_about_loan>min</information_about_loan>
-				<loan_quote_text>You can also pay installments, eg € {INSTALMENT_AMOUNT}, in {INSTALMENT_PERIOD} months, with a total cost of € {TOTAL_REPAID} and TAEG {TAEG}. Just choose "Pay with Soisy" when choosing the payment method</loan_quote_text>
+				<loan_quote_text>You can also pay installments, eg  {INSTALMENT_AMOUNT}, in {INSTALMENT_PERIOD} months, with a total cost of {TOTAL_REPAID} and TAEG {TAEG}. Just choose "Pay with Soisy" when choosing the payment method</loan_quote_text>
 			</soisy>
 		</payment>
 	</default>

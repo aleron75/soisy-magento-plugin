@@ -44,8 +44,8 @@ class Bitbull_Soisy_Model_Soisy extends Mage_Payment_Model_Method_Abstract
         $params = [
             'email' => $billingAddress->getEmail(),
             'amount' => $quote->getGrandTotal() * 100,
-            'lastname' => $billingAddress->getLastname(),
-            'firstname' => $billingAddress->getFirstname(),
+            'lastname' => $data->getLastname(),
+            'firstname' => $data->getName(),
             'fiscalCode' => $data->getFiscalCode(),
             'mobilePhone' => $data->getMobilePhone(),
             'city' => $data->getCity(),

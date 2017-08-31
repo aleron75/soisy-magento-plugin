@@ -100,9 +100,9 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
     public function formatProductInfoLoanQuoteBlock($obj)
     {
         $variables = array(
-            '{INSTALMENT_AMOUNT}' => $obj->instalmentAmount / 100,
+            '{INSTALMENT_AMOUNT}' => Mage::helper('core')->formatPrice($obj->instalmentAmount / 100, true),
             '{INSTALMENT_PERIOD}' => Mage::getStoreConfig('payment/soisy/instalments', Mage::app()->getStore()),
-            '{TOTAL_REPAID}' => $obj->totalRepaid / 100,
+            '{TOTAL_REPAID}' => Mage::helper('core')->formatPrice($obj->totalRepaid / 100, true),
             '{TAEG}' => $obj->apr,
         );
 
