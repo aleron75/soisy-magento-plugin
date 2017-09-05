@@ -1,0 +1,19 @@
+<?php
+/**
+ * @category Bitbull
+ * @package  Bitbull_Soisy
+ * @author   Martins Saukums <martins.saukums@bitbull.it>
+ */
+?>
+
+<?php if (Mage::getSingleton('checkout/session')->getQuote()->getPayment()->getMethodInstance()->getCode() == Bitbull_Soisy_Model_Soisy::METHOD_CODE): ?>
+    <script type="application/javascript">
+        if (checkout.accordion.currentSection == 'opc-review') {
+            new soisyInstalmentBlock(
+                "<?php echo Mage::getModel('checkout/session')->getQuote()->getGrandTotal() ?>",
+                "<?php echo Mage::getUrl('soisy/loanQuote/amount') ?>",
+                "<?php echo Mage::getStoreConfig('payment/soisy/checkout_loan_quote_placement', Mage::app()->getStore()) ?>"
+            );
+        }
+    </script>
+<?php endif; ?>

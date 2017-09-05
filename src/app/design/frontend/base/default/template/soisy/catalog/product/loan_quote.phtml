@@ -1,19 +1,21 @@
 <?php
+/**
+ * @category Bitbull
+ * @package  Bitbull_Soisy
+ * @author   Martins Saukums <martins.saukums@bitbull.it>
+ */
 /* @var $this Bitbull_Soisy_Block_Catalog_Product_LoanQuote */
 ?>
 
 <?php $product = $this->getProduct(); ?>
 <script type="application/javascript">
     //<![CDATA[
-    document.observe("dom:loaded", function() {
-        new Ajax.Request("<?php echo Mage::getUrl('soisy/loanQuote/amount') ?>", {
-            method: 'POST',
-            parameters: {"amount" : <?php echo  $product->getFinalPrice() ?>},
-            requestHeaders: {Accept: 'application/json'},
-            onSuccess: function (transport) {
-                $$('.<?php echo Mage::getStoreConfig('payment/soisy/loan_quote_placement', Mage::app()->getStore()) ?>').first().insert({ 'after' : "<p>"+ transport.responseText +"</p>" });
-            }.bind(this)
-        });
+    document.observe("dom:loaded", function () {
+        new soisyInstalmentBlock(
+            "<?php echo $product->getFinalPrice() ?>",
+            "<?php echo Mage::getUrl('soisy/loanQuote/amount') ?>",
+            "<?php echo Mage::getStoreConfig('payment/soisy/loan_quote_placement', Mage::app()->getStore()) ?>"
+        );
     });
     //]]>
 </script>
