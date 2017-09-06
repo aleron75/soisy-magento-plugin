@@ -65,6 +65,7 @@
 				<model>soisy/soisy</model>
 				<order_status>pending</order_status>
 				<title>Finanziamento con Soisy</title>
+				<terms_and_conditions>https://www.soisy.it/privacy-policy/</terms_and_conditions>
 				<allowspecific>0</allowspecific>
 				<group>offline</group>
 				<instalments>12</instalments>

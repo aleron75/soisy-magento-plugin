@@ -2,11 +2,17 @@
 /* @var $this Bitbull_Soisy_Block_Form_Soisy */
 ?>
 <ul class="form-list" id="payment_form_<?php echo $this->getMethodCode() ?>" style="display:none;">
+    <?php $description = Mage::getStoreConfig(Bitbull_Soisy_Helper_Data::XML_PATH_DESCRIPTION) ?>
+    <?php if (isset($description)): ?>
+        <li>
+            <p><?php echo $description ?></p>
+        </li>
+    <?php endif; ?>
     <li>
         <label for="soisy_name" class="required"><em>*</em><?php echo $this->__('Name') ?></label>
         <div class="input-box">
             <input type="text" id="soisy_address" name="payment[name]"
-                   title="<?php echo Mage::helper('core')->quoteEscape($this->__('Name')) ?>"
+                   title="<?php echo $this->helper('core')->quoteEscape($this->__('Name')) ?>"
                    class="input-text required-entry"
                    value="<?php echo $this->escapeHtml(($this->getAdditionalInformation('name')) ? $this->getAdditionalInformation('name') : $this->getBillingAddress()->getFirstname()) ?>"/>
         </div>
@@ -15,7 +21,7 @@
         <label for="soisy_lastname" class="required"><em>*</em><?php echo $this->__('Lastname') ?></label>
         <div class="input-box">
             <input type="text" id="soisy_lastname" name="payment[lastname]"
-                   title="<?php echo Mage::helper('core')->quoteEscape($this->__('Lastname')) ?>"
+                   title="<?php echo $this->helper('core')->quoteEscape($this->__('Lastname')) ?>"
                    class="input-text required-entry"
                    value="<?php echo $this->escapeHtml(($this->getAdditionalInformation('lastname')) ? $this->getAdditionalInformation('lastname') : $this->getBillingAddress()->getLastname()) ?>"/>
         </div>
@@ -24,18 +30,18 @@
         <label for="soisy_address" class="required"><em>*</em><?php echo $this->__('Address') ?></label>
         <div class="input-box">
             <input type="text" id="soisy_address" name="payment[address]"
-                   title="<?php echo Mage::helper('core')->quoteEscape($this->__('Address')) ?>"
+                   title="<?php echo $this->helper('core')->quoteEscape($this->__('Address')) ?>"
                    class="input-text required-entry"
-                   value="<?php echo $this->escapeHtml(($this->getAdditionalInformation('address')) ? $this->getAdditionalInformation('address') : Mage::helper('soisy')->getBillingAddressWithoutCivicNumber($this->getBillingAddress()->getStreetFull())) ?>"/>
+                   value="<?php echo $this->escapeHtml(($this->getAdditionalInformation('address')) ? $this->getAdditionalInformation('address') : $this->helper('soisy')->getBillingAddressWithoutCivicNumber($this->getBillingAddress()->getStreetFull())) ?>"/>
         </div>
     </li>
     <li>
         <label for="soisy_civic_number" class="required"><em>*</em><?php echo $this->__('Civic Number') ?></label>
         <div class="input-box">
             <input type="text" id="soisy_civic_number" name="payment[civic_number]"
-                   title="<?php echo Mage::helper('core')->quoteEscape($this->__('Civic Number')) ?>"
+                   title="<?php echo $this->helper('core')->quoteEscape($this->__('Civic Number')) ?>"
                    class="input-text required-entry"
-                   value="<?php echo $this->escapeHtml( ($this->getAdditionalInformation('civicNumber')) ? $this->getAdditionalInformation('civicNumber') : Mage::helper('soisy')->getCivicFromBillingAddress($this->getBillingAddress()->getStreetFull()) ) ?>"/>
+                   value="<?php echo $this->escapeHtml( ($this->getAdditionalInformation('civicNumber')) ? $this->getAdditionalInformation('civicNumber') : $this->helper('soisy')->getCivicFromBillingAddress($this->getBillingAddress()->getStreetFull()) ) ?>"/>
         </div>
     </li>
     <li>
@@ -51,7 +57,7 @@
         <label for="soisy_city" class="required"><em>*</em><?php echo $this->__('City') ?></label>
         <div class="input-box">
             <input type="text" id="soisy_city" name="payment[city]"
-                   title="<?php echo Mage::helper('core')->quoteEscape($this->__('City')) ?>"
+                   title="<?php echo $this->helper('core')->quoteEscape($this->__('City')) ?>"
                    class="input-text required-entry"
                    value="<?php echo $this->escapeHtml($this->getAdditionalInformation('city') ? $this->getAdditionalInformation('city') : $this->getBillingAddress()->getCity()) ?>"/>
         </div>
@@ -60,7 +66,7 @@
         <label for="soisy_region_id" class="required"><em>*</em><?php echo $this->__('State/Province') ?></label>
         <div class="input-box">
             <select id="soisy_region_id" name="payment[region_id]"
-                    title="<?php echo Mage::helper('core')->quoteEscape($this->__('State/Province')) ?>"
+                    title="<?php echo $this->helper('core')->quoteEscape($this->__('State/Province')) ?>"
                     class="validate-select required-entry" style="display:none;">
                 <option value=""><?php echo $this->__('Please select region, state or province') ?></option>
             </select>
@@ -71,7 +77,7 @@
             </script>
             <input type="text" id="soisy_region" name="payment[province]"
                    value="<?php echo $this->escapeHtml(($this->getAdditionalInformation('province')) ? $this->escapeHtml($this->getAdditionalInformation('province')) : $this->getBillingAddress()->getRegion()) ?>"
-                   title="<?php echo Mage::helper('core')->quoteEscape($this->__('State/Province')) ?>"
+                   title="<?php echo $this->helper('core')->quoteEscape($this->__('State/Province')) ?>"
                    class="input-text  required-entry<?php echo $this->helper('customer/address')->getAttributeValidationClass('region') ?>"
                    style="display:none;"/>
         </div>
@@ -80,7 +86,7 @@
         <label for="soisy_mobile_phone" class="required"><em>*</em><?php echo $this->__('Mobile Phone') ?></label>
         <div class="input-box">
             <input type="text" id="soisy_mobile_phone" name="payment[mobile_phone]"
-                   title="<?php echo Mage::helper('core')->quoteEscape($this->__('Mobile Phone')) ?>"
+                   title="<?php echo $this->helper('core')->quoteEscape($this->__('Mobile Phone')) ?>"
                    class="input-text required-entry"
                    value="<?php echo $this->escapeHtml(($this->getAdditionalInformation('mobilePhone')) ? $this->getAdditionalInformation('mobilePhone') : $this->getBillingAddress()->getTelephone()) ?>"/>
         </div>
@@ -93,7 +99,7 @@
             <div class="input-box">
                 <input type="text" id="soisy_vat_id" name="payment[vat_id]"
                        value="<?php echo $this->escapeHtml($this->getBillingAddress()->getVatId()) ?>"
-                       title="<?php echo Mage::helper('core')->quoteEscape($this->__('VAT Number')) ?>"
+                       title="<?php echo $this->helper('core')->quoteEscape($this->__('VAT Number')) ?>"
                        class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('vat_id') ?>"/>
             </div>
         </li>
@@ -103,7 +109,7 @@
         <label for="soisy_fiscal_code" class="required"><em>*</em><?php echo $this->__('Fiscal Code') ?></label>
         <div class="input-box">
             <input type="text" id="soisy_fiscal_code" name="payment[fiscal_code]"
-                   title="<?php echo Mage::helper('core')->quoteEscape($this->__('Fiscal code')) ?>"
+                   title="<?php echo $this->helper('core')->quoteEscape($this->__('Fiscal code')) ?>"
                    class="input-text required-entry"
                    value="<?php echo $this->escapeHtml($this->getAdditionalInformation('fiscalCode')) ?>"/>
         </div>

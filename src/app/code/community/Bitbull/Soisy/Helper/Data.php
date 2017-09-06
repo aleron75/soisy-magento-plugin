@@ -14,6 +14,8 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
 
     const XML_PATH_TERMS_AND_CONDITIONS = 'payment/soisy/terms_and_conditions';
 
+    const XML_PATH_DESCRIPTION = 'payment/soisy/description';
+
     const PATTERN = "/^([-\p{L}.'0-9 ]*?)(?: ([0-9]*))?$/u";
 
     public function isEnabled($store = null)
