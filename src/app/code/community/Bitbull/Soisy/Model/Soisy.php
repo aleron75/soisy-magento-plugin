@@ -43,7 +43,7 @@ class Bitbull_Soisy_Model_Soisy extends Mage_Payment_Model_Method_Abstract
 
         $params = [
             'email' => $billingAddress->getEmail(),
-            'amount' => $quote->getGrandTotal() * 100,
+            'amount' => Mage::helper('soisy')->calculateAmountBasedOnPercentage($quote->getGrandTotal()),
             'lastname' => $data->getLastname(),
             'firstname' => $data->getName(),
             'fiscalCode' => $data->getFiscalCode(),
@@ -58,6 +58,7 @@ class Bitbull_Soisy_Model_Soisy extends Mage_Payment_Model_Method_Abstract
         $tokenResponse = $this->_client->getToken($params);
 
         if ($tokenResponse->getToken()) {
+            Mage::helper('soisy')->setNewOrderTemplate();
             Mage::getSingleton('checkout/session')->setData('soisy_token', $tokenResponse->getToken());
             $params['region_id'] = $data->getRegionId();
             $this->getInfoInstance()

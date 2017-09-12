@@ -6,17 +6,21 @@
 
 var soisyInstalmentBlock = Class.create();
 soisyInstalmentBlock.prototype = {
-    initialize: function (amount, url, blockClass) {
+    initialize: function (amount, url, blockClass, textPath) {
         this.amount = amount;
         this.url = url;
         this.blockClass = blockClass;
+        this.textPath = textPath;
         this.request();
     },
 
     request: function () {
         new Ajax.Request(this.url, {
             method: 'POST',
-            parameters: {"amount": this.amount},
+            parameters: {
+                "amount": this.amount,
+                "text": this.textPath
+            },
             requestHeaders: {Accept: 'application/json'},
             onSuccess: function (transport) {
                 if (transport.responseText) {
@@ -27,6 +31,13 @@ soisyInstalmentBlock.prototype = {
     },
 
     placeBlock: function (text) {
-        $$('.' + this.blockClass).first().insert({'after': "<p>" + text + "</p>"});
+
+        $$('.' + this.blockClass).each(
+            function (element) {
+                if (element != undefined) {
+                    element.insert({'after': "<p>" + text + "</p>"})
+                }
+            }
+        );
     }
 };

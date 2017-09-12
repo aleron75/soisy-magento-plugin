@@ -7,15 +7,20 @@
 /* @var $this Bitbull_Soisy_Block_Catalog_Product_LoanQuote */
 ?>
 
-<?php $product = $this->getProduct(); ?>
-<script type="application/javascript">
-    //<![CDATA[
-    document.observe("dom:loaded", function () {
-        new soisyInstalmentBlock(
-            "<?php echo $product->getFinalPrice() ?>",
-            "<?php echo Mage::getUrl('soisy/loanQuote/amount') ?>",
-            "<?php echo Mage::getStoreConfig('payment/soisy/loan_quote_placement', Mage::app()->getStore()) ?>"
-        );
-    });
-    //]]>
-</script>
+<?php $methods = $payments = Mage::getSingleton('payment/config')->getActiveMethods(); ?>
+
+<?php if (array_key_exists(Bitbull_Soisy_Model_Soisy::METHOD_CODE, $methods)): ?>
+    <?php $product = $this->getProduct(); ?>
+    <script type="application/javascript">
+        //<![CDATA[
+        document.observe("dom:loaded", function () {
+            new soisyInstalmentBlock(
+                "<?php echo $product->getFinalPrice() ?>",
+                "<?php echo Mage::getUrl('soisy/loanQuote/amount') ?>",
+                "<?php echo Mage::getStoreConfig('payment/soisy/loan_quote_placement', Mage::app()->getStore()) ?>",
+                "payment/soisy/loan_quote_text_product"
+            );
+        });
+        //]]>
+    </script>
+<?php endif; ?>

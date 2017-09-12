@@ -5,3 +5,4 @@ src/app/design/frontend/base/default/template/soisy   app/design/frontend/base/d
 src/app/design/frontend/base/default/layout/soisy.xml   app/design/frontend/base/default/layout/soisy.xml
 src/lib/Bitbull/Soisy   lib/Bitbull/Soisy
 src/js/soisy    js/soisy
+src/skin/frontend/base/default/images/soisy     skin/frontend/base/default/images/soisy

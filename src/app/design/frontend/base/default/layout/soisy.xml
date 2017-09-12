@@ -23,7 +23,16 @@
     </checkout_onepage_index>
     <checkout_onepage_review>
         <reference name="checkout.onepage.review.info.items.after">
-            <block type="core/template" name="review.test.2" template="soisy/checkout/onepage/review/instalments.phtml"/>
+            <block type="core/template" name="soisy.instalments.block" template="soisy/checkout/onepage/review/instalments.phtml"/>
         </reference>
     </checkout_onepage_review>
+
+    <checkout_cart_index>
+        <reference name="head">
+            <action method="addJs"><file>soisy/instalmentblock.js</file></action>
+        </reference>
+        <reference name="additional.product.info">
+            <block type="core/template"  name="soisy.instalments.block" template="soisy/checkout/cart/instalments.phtml"/>
+        </reference>
+    </checkout_cart_index>
 </layout>

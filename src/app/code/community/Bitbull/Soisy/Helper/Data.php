@@ -12,9 +12,15 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
 
     const XML_PATH_SHOP_ID = 'payment/soisy/shop_id';
 
+    const XML_PATH_TOTAL_PERCENTAGE_OF_LOAN = 'payment/soisy/percentage';
+
     const XML_PATH_TERMS_AND_CONDITIONS = 'payment/soisy/terms_and_conditions';
 
     const XML_PATH_DESCRIPTION = 'payment/soisy/description';
+
+    const XML_PATH_NEW_ORDER_TEMPLATE = 'payment/soisy/template';
+
+    const XML_PATH_NEW_ORDER_TEMPLATE_GUEST = 'payment/soisy/guest_template';
 
     const PATTERN = "/^([-\p{L}.'0-9 ]*?)(?: ([0-9]*))?$/u";
 
@@ -96,10 +102,11 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Format output message for soisy product loan block
+     * @param text
      * @param $obj
      * @return string
      */
-    public function formatProductInfoLoanQuoteBlock($obj)
+    public function formatProductInfoLoanQuoteBlock($text,$obj)
     {
         $variables = array(
             '{INSTALMENT_AMOUNT}' => Mage::helper('core')->formatPrice($obj->instalmentAmount / 100, true),
@@ -108,6 +115,33 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
             '{TAEG}' => $obj->apr,
         );
 
-        return strtr(Mage::getStoreConfig('payment/soisy/loan_quote_text', Mage::app()->getStore()), $variables);
+        return strtr($text, $variables);
+    }
+
+    /**
+     * Inject custom Soisy Merchant email templates
+     */
+    public function setNewOrderTemplate()
+    {
+        if (Mage::getStoreConfig(self::XML_PATH_NEW_ORDER_TEMPLATE, Mage::app()->getStore())) {
+            Mage::app()->getStore()->setConfig(Mage_Sales_Model_Order::XML_PATH_EMAIL_TEMPLATE,
+                Mage::getStoreConfig(self::XML_PATH_NEW_ORDER_TEMPLATE, Mage::app()->getStore()));
+        }
+
+        if (Mage::getStoreConfig(self::XML_PATH_NEW_ORDER_TEMPLATE_GUEST, Mage::app()->getStore())) {
+            Mage::app()->getStore()->setConfig(Mage_Sales_Model_Order::XML_PATH_EMAIL_GUEST_TEMPLATE,
+                Mage::getStoreConfig(self::XML_PATH_NEW_ORDER_TEMPLATE, Mage::app()->getStore()));
+        }
+    }
+
+    /**
+     * Calculate Soisy loan based on percentage of loan
+     *
+     * @param $amount
+     * @return mixed
+     */
+    public function calculateAmountBasedOnPercentage($amount)
+    {
+        return $amount * Mage::getStoreConfig(self::XML_PATH_TOTAL_PERCENTAGE_OF_LOAN, Mage::app()->getStore());
     }
 }

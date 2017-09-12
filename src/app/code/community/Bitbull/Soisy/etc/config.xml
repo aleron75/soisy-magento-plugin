@@ -63,6 +63,7 @@
 			<soisy>
 				<active>0</active>
 				<model>soisy/soisy</model>
+				<percentage>100</percentage>
 				<order_status>pending</order_status>
 				<title>Finanziamento con Soisy</title>
 				<terms_and_conditions>https://www.soisy.it/privacy-policy/</terms_and_conditions>
@@ -71,8 +72,11 @@
 				<instalments>12</instalments>
 				<loan_quote_placement>price-box</loan_quote_placement>
 				<checkout_loan_quote_placement>checkout-review-table</checkout_loan_quote_placement>
+				<cart_loan_quote_placement>cart-totals #shopping-cart-totals-table</cart_loan_quote_placement>
 				<information_about_loan>min</information_about_loan>
-				<loan_quote_text>You can also pay installments, eg  {INSTALMENT_AMOUNT}, in {INSTALMENT_PERIOD} months, with a total cost of {TOTAL_REPAID} and TAEG {TAEG}. Just choose "Pay with Soisy" when choosing the payment method</loan_quote_text>
+				<loan_quote_text_checkout>You can also pay installments, eg  {INSTALMENT_AMOUNT}, in {INSTALMENT_PERIOD} months, with a total cost of {TOTAL_REPAID} and TAEG {TAEG}. Just choose "Pay with Soisy" when choosing the payment method</loan_quote_text_checkout>
+				<loan_quote_text_cart>You can also pay installments, eg  {INSTALMENT_AMOUNT}, in {INSTALMENT_PERIOD} months, with a total cost of {TOTAL_REPAID} and TAEG {TAEG}. Just choose "Pay with Soisy" when choosing the payment method</loan_quote_text_cart>
+				<loan_quote_text_product>You can also pay installments, eg  {INSTALMENT_AMOUNT}, in {INSTALMENT_PERIOD} months, with a total cost of {TOTAL_REPAID} and TAEG {TAEG}. Just choose "Pay with Soisy" when choosing the payment method</loan_quote_text_product>
 			</soisy>
 		</payment>
 	</default>
