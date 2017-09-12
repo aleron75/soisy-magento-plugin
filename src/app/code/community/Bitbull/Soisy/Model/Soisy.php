@@ -55,6 +55,10 @@ class Bitbull_Soisy_Model_Soisy extends Mage_Payment_Model_Method_Abstract
             'civicNumber' => $data->getCivicNumber(),
         ];
 
+       if ($data->getVatId()) {
+           $params['vatId'] = $data->getVatId();
+       }
+
         $tokenResponse = $this->_client->getToken($params);
 
         if ($tokenResponse->getToken()) {
