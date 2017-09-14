@@ -20,7 +20,7 @@
                             <show_in_store>0</show_in_store>
                         </active>
                         <percentage translate="label">
-                            <label>Calculate loan on a percentage of the total</label>
+                            <label>Upfront payment percentage</label>
                             <frontend_type>select</frontend_type>
                             <source_model>soisy/system_config_source_percentage</source_model>
                             <sort_order>2</sort_order>
@@ -116,9 +116,8 @@
                         </specificcountry>
                         <instalments translate="label comment">
                             <label>Instalments</label>
-                            <comment>
-                                <![CDATA[Choose from 3 to 60]]></comment>
-                            <frontend_type>select</frontend_type>
+                            <comment><![CDATA[Choose from 3 to 60]]></comment>
+                            <frontend_type>multiselect</frontend_type>
                             <source_model>soisy/system_config_source_instalment</source_model>
                             <sort_order>52</sort_order>
                             <show_in_default>1</show_in_default>
@@ -141,7 +140,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Provide text for Product page loan quote block with placeholders for variables {INSTALMENT_AMOUNT},{INSTALMENT_PERIOD},{TOTAL_REPAID},{TAEG} </comment>
+                            <comment>Provide text for Product page loan quote block with placeholders for variables {INSTALMENT_AMOUNT},{INSTALMENT_PERIOD},{TOTAL_REPAID},{TAEG},{UPFRONT_PAYMENT} </comment>
                         </loan_quote_text_product>
                         <cart_loan_quote_placement translate="label">
                             <label>Cart loan quote block placement class</label>
@@ -159,7 +158,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Provide text for Cart page loan quote block with placeholders for variables {INSTALMENT_AMOUNT},{INSTALMENT_PERIOD},{TOTAL_REPAID},{TAEG} </comment>
+                            <comment>Provide text for Cart page loan quote block with placeholders for variables {INSTALMENT_AMOUNT},{INSTALMENT_PERIOD},{TOTAL_REPAID},{TAEG},{UPFRONT_PAYMENT} </comment>
                         </loan_quote_text_cart>
                         <checkout_loan_quote_placement translate="label">
                             <label>Checkout loan quote block placement class</label>
@@ -178,7 +177,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Provide text for Checkout page loan quote block with placeholders for variables {INSTALMENT_AMOUNT},{INSTALMENT_PERIOD},{TOTAL_REPAID},{TAEG} </comment>
+                            <comment>Provide text for Checkout page loan quote block with placeholders for variables {INSTALMENT_AMOUNT},{INSTALMENT_PERIOD},{TOTAL_REPAID},{TAEG},{UPFRONT_PAYMENT} </comment>
                         </loan_quote_text_checkout>
                         <information_about_loan  translate="label">
                             <label>Information about loan</label>

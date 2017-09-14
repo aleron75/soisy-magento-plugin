@@ -14,6 +14,10 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
 
     const XML_PATH_TOTAL_PERCENTAGE_OF_LOAN = 'payment/soisy/percentage';
 
+    const XML_PATH_LOAN_CONFIGURE = 'payment/soisy/information_about_loan';
+
+    const XML_PATH_INSTALMENT_PERIOD = 'payment/soisy/instalments';
+
     const XML_PATH_TERMS_AND_CONDITIONS = 'payment/soisy/terms_and_conditions';
 
     const XML_PATH_DESCRIPTION = 'payment/soisy/description';
@@ -21,6 +25,10 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
     const XML_PATH_NEW_ORDER_TEMPLATE = 'payment/soisy/template';
 
     const XML_PATH_NEW_ORDER_TEMPLATE_GUEST = 'payment/soisy/guest_template';
+
+    const XML_PATH_MIN_TOTAL = 'payment/soisy/min_order_total';
+
+    const XML_PATH_MAX_TOTAL = 'payment/soisy/max_order_total';
 
     const PATTERN = "/^([-\p{L}.'0-9 ]*?)(?: ([0-9]*))?$/u";
 
@@ -106,12 +114,13 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
      * @param $obj
      * @return string
      */
-    public function formatProductInfoLoanQuoteBlock($text,$obj)
+    public function formatProductInfoLoanQuoteBlock($text, $obj)
     {
         $variables = array(
             '{INSTALMENT_AMOUNT}' => Mage::helper('core')->formatPrice($obj->instalmentAmount / 100, true),
-            '{INSTALMENT_PERIOD}' => Mage::getStoreConfig('payment/soisy/instalments', Mage::app()->getStore()),
+            '{INSTALMENT_PERIOD}' => $this->getInstalmentPeriod(),
             '{TOTAL_REPAID}' => Mage::helper('core')->formatPrice($obj->totalRepaid / 100, true),
+            '{UPFRONT_PAYMENT}' => Mage::helper('core')->formatPrice(($obj->amount - $obj->loanAmount) , true),
             '{TAEG}' => $obj->apr,
         );
 
@@ -142,6 +151,51 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function calculateAmountBasedOnPercentage($amount)
     {
-        return $amount * Mage::getStoreConfig(self::XML_PATH_TOTAL_PERCENTAGE_OF_LOAN, Mage::app()->getStore());
+        return $amount - (($amount / 100) * Mage::getStoreConfig(self::XML_PATH_TOTAL_PERCENTAGE_OF_LOAN,
+                    Mage::app()->getStore()));
+    }
+
+    public function getInstalmentMaxAndMinPeriod()
+    {
+        $instalmentPeriodArray = explode(',',
+            Mage::getStoreConfig(self::XML_PATH_INSTALMENT_PERIOD, Mage::app()->getStore()));
+
+        if (min($instalmentPeriodArray) != max($instalmentPeriodArray)) {
+            return [min($instalmentPeriodArray), max($instalmentPeriodArray)];
+        } else {
+            return [min($instalmentPeriodArray)];
+        }
+    }
+
+    /**
+     * Return instalment period from select
+     * @return mixed
+     */
+    public function getInstalmentPeriod()
+    {
+        $instalmentPeriodArray = explode(',',
+            Mage::getStoreConfig(self::XML_PATH_INSTALMENT_PERIOD, Mage::app()->getStore()));
+
+        return min($instalmentPeriodArray);
+    }
+
+    /**
+     *
+     *
+     * @param $amount
+     * @return bool
+     */
+    public function checkIfAvailableBuyAmount($amount)
+    {
+        if ((Mage::getStoreConfig(self::XML_PATH_MIN_TOTAL, Mage::app()->getStore()) <= $amount)
+            &&
+            ($amount <= Mage::getStoreConfig(self::XML_PATH_MAX_TOTAL, Mage::app()->getStore())))
+        {
+
+            return true;
+        } else {
+
+            return false;
+        }
     }
 }

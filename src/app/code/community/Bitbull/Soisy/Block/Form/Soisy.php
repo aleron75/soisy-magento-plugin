@@ -14,6 +14,11 @@ class Bitbull_Soisy_Block_Form_Soisy extends Mage_Payment_Block_Form
     protected $_client = null;
 
     /**
+     * @var Bitbull_Soisy_Helper_Data
+     */
+    protected $_helper = null;
+
+    /**
      * @var $_additionalInformationArray
      */
     protected $_additionalInformationArray = [];
@@ -23,7 +28,8 @@ class Bitbull_Soisy_Block_Form_Soisy extends Mage_Payment_Block_Form
      */
     protected function _construct()
     {
-        $this->_client =  Mage::helper('soisy')->getClient();
+        $this->_helper = $this->helper('soisy');
+        $this->_client = $this->_helper->getClient();
         $mark = Mage::getConfig()->getBlockClassName('core/template');
         $mark = new $mark;
         $mark->setTemplate('soisy/payment/mark.phtml');
@@ -58,16 +64,22 @@ class Bitbull_Soisy_Block_Form_Soisy extends Mage_Payment_Block_Form
             $this->_additionalInformationArray)) ? $this->_additionalInformationArray[$param] : null;
     }
 
+    /**
+     * Get name for payment method
+     * @return string
+     */
     public function getMethodTitle()
     {
-        $instalments = Mage::getStoreConfig('payment/soisy/instalments', Mage::app()->getStore());
+        $total = (float)Mage::getModel('checkout/session')->getQuote()->getGrandTotal();
+        $amountBasedOnPercentage = $this->_helper->calculateAmountBasedOnPercentage($total);
 
-        $amountResponse = $this->_client->getAmount(['amount' => Mage::helper('soisy')->calculateAmountBasedOnPercentage(Mage::getModel('checkout/session')->getQuote()->getGrandTotal()), 'instalments' => $instalments]);
-
-        if ($amountResponse && isset($amountResponse->{Mage::getStoreConfig('payment/soisy/information_about_loan')})) {
-            return __(' Pay Installment %s x %s months',
-                Mage::helper('core')->formatPrice($amountResponse->{Mage::getStoreConfig('payment/soisy/information_about_loan')}->instalmentAmount / 100,
-                    false),$instalments );
+        if ($amountBasedOnPercentage) {
+            return __('&nbsp; Pay with Soisy: [upfront %s +] %s installments',
+                $this->helper('core')->formatPrice($total - $amountBasedOnPercentage, false),
+                implode("/", $this->_helper->getInstalmentMaxAndMinPeriod()));
+        } else {
+            return __('&nbsp; Pay with Soisy:  %s installments',
+                implode("/", $this->_helper->getInstalmentMaxAndMinPeriod()));
         }
     }
 }

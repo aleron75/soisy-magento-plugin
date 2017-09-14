@@ -40,10 +40,10 @@ class Bitbull_Soisy_Model_Soisy extends Mage_Payment_Model_Method_Abstract
         $paymentInfo = $this->getInfoInstance();
         $quote = $paymentInfo->getQuote();
         $billingAddress = $quote->getBillingAddress();
-
+        $loanAmount = Mage::helper('soisy')->calculateAmountBasedOnPercentage($quote->getGrandTotal());
         $params = [
             'email' => $billingAddress->getEmail(),
-            'amount' => Mage::helper('soisy')->calculateAmountBasedOnPercentage($quote->getGrandTotal()),
+            'amount' => (($loanAmount) ? $loanAmount : $quote->getGrandTotal()) * 100,
             'lastname' => $data->getLastname(),
             'firstname' => $data->getName(),
             'fiscalCode' => $data->getFiscalCode(),
@@ -55,9 +55,9 @@ class Bitbull_Soisy_Model_Soisy extends Mage_Payment_Model_Method_Abstract
             'civicNumber' => $data->getCivicNumber(),
         ];
 
-       if ($data->getVatId()) {
-           $params['vatId'] = $data->getVatId();
-       }
+        if ($data->getVatId()) {
+            $params['vatId'] = $data->getVatId();
+        }
 
         $tokenResponse = $this->_client->getToken($params);
 
@@ -74,4 +74,20 @@ class Bitbull_Soisy_Model_Soisy extends Mage_Payment_Model_Method_Abstract
 
         return $this;
     }
+
+
+    /**
+     * @param null $quote
+     * @return mixed
+     */
+    public function isAvailable($quote = null)
+    {
+        parent::isAvailable();
+
+        $total = $quote->getGrandTotal();
+        $loanAmount = Mage::helper('soisy')->calculateAmountBasedOnPercentage($total);
+
+        return ($loanAmount) ? Mage::helper('soisy')->checkIfAvailableBuyAmount($loanAmount) : Mage::helper('soisy')->checkIfAvailableBuyAmount($total);
+    }
+
 }

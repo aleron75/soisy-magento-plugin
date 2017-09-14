@@ -15,8 +15,6 @@ class Bitbull_Soisy_Model_Observer
     {
         $orderIds = $observer->getEvent()->getOrderIds();
 
-        Mage::log($orderIds);
-
         if (empty($orderIds) || !is_array($orderIds)) {
             return;
         }
