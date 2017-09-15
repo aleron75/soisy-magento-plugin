@@ -22,6 +22,11 @@ class Bitbull_Soisy_Order_Token
 
     public function getToken()
     {
-        return $this->_response->token;
+        return (isset($this->_response->token)) ? $this->_response->token : null;
+    }
+
+    public function getErrorFromSoisy()
+    {
+        return (isset($this->_response[0])) ? strtok($this->_response[0], ':') : null;
     }
 }

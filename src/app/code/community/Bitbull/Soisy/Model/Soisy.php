@@ -68,13 +68,16 @@ class Bitbull_Soisy_Model_Soisy extends Mage_Payment_Model_Method_Abstract
             $this->getInfoInstance()
                 ->setAdditionalInformation($params);
         } else {
-            $this->_client->_logger->log('Error while trying to complete payment');
-            Mage::throwException(Mage::helper('payment')->__('Error while trying to complete payment'));
+            if ($tokenResponse->getErrorFromSoisy()) {
+                Mage::throwException('Error in ' . $tokenResponse->getErrorFromSoisy() . ' field');
+            } else {
+                $this->_client->_logger->log('Error while trying to complete payment');
+                Mage::throwException(Mage::helper('payment')->__('Error while trying to complete payment'));
+            }
         }
 
         return $this;
     }
-
 
     /**
      * @param null $quote
@@ -89,5 +92,4 @@ class Bitbull_Soisy_Model_Soisy extends Mage_Payment_Model_Method_Abstract
 
         return ($loanAmount) ? Mage::helper('soisy')->checkIfAvailableBuyAmount($loanAmount) : Mage::helper('soisy')->checkIfAvailableBuyAmount($total);
     }
-
 }
