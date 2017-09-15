@@ -74,7 +74,7 @@ class Bitbull_Soisy_Block_Form_Soisy extends Mage_Payment_Block_Form
         $amountBasedOnPercentage = $this->_helper->calculateAmountBasedOnPercentage($total);
 
         if ($amountBasedOnPercentage) {
-            return __('&nbsp; Pay with Soisy: [upfront %s +] %s installments',
+            return __('&nbsp; Pay with Soisy: upfront of %s + %s installments',
                 $this->helper('core')->formatPrice($total - $amountBasedOnPercentage, false),
                 implode("/", $this->_helper->getInstalmentMaxAndMinPeriod()));
         } else {
