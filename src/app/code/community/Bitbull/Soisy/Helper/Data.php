@@ -187,15 +187,7 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function checkIfAvailableBuyAmount($amount)
     {
-        if ((Mage::getStoreConfig(self::XML_PATH_MIN_TOTAL, Mage::app()->getStore()) <= $amount)
-            &&
-            ($amount <= Mage::getStoreConfig(self::XML_PATH_MAX_TOTAL, Mage::app()->getStore())))
-        {
-
-            return true;
-        } else {
-
-            return false;
-        }
+        return ((Mage::getStoreConfig(self::XML_PATH_MIN_TOTAL, Mage::app()->getStore()) <= $amount)
+            && ($amount <= Mage::getStoreConfig(self::XML_PATH_MAX_TOTAL, Mage::app()->getStore())));
     }
 }
