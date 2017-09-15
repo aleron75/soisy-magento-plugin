@@ -60,7 +60,6 @@ class Bitbull_Soisy_Block_Redirect extends Mage_Core_Block_Template
     */
     public function orderPaidWithSoisy()
     {
-        // @todo take from the order
         return Mage::getSingleton('checkout/session')->hasData('soisy_token');
     }
 }

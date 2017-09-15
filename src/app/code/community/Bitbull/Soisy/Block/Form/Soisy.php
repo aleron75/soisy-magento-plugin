@@ -30,11 +30,11 @@ class Bitbull_Soisy_Block_Form_Soisy extends Mage_Payment_Block_Form
     {
         $this->_helper = $this->helper('soisy');
         $this->_client = $this->_helper->getClient();
-        $mark = Mage::getConfig()->getBlockClassName('core/template');
-        $mark = new $mark;
-        $mark->setTemplate('soisy/payment/mark.phtml');
+        $markBlockClassname = Mage::getConfig()->getBlockClassName('core/template');
+        $markBlock = new $markBlockClassname;
+        $markBlock->setTemplate('soisy/payment/mark.phtml');
         $this->setTemplate('soisy/payment/form.phtml');
-        $this->setMethodLabelAfterHtml($mark->toHtml());
+        $this->setMethodLabelAfterHtml($markBlock->toHtml());
         $this->setMethodTitle($this->getMethodTitle());
 
         return parent::_construct();
