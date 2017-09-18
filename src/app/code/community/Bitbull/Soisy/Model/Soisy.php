@@ -79,13 +79,11 @@ class Bitbull_Soisy_Model_Soisy extends Mage_Payment_Model_Method_Abstract
         return $this;
     }
 
-    /**
-     * @param null $quote
-     * @return mixed
-     */
-    public function isAvailable($quote = null)
+    public function isApplicableToQuote($quote, $checksBitMask)
     {
-        parent::isAvailable();
+        if (!parent::isApplicableToQuote($quote, $checksBitMask)) {
+            return false;
+        }
 
         $total = $quote->getGrandTotal();
         $loanAmount = Mage::helper('soisy')->calculateAmountBasedOnPercentage($total);
