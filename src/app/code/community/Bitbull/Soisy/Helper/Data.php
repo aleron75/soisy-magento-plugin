@@ -18,6 +18,8 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
 
     const XML_PATH_INSTALMENT_PERIOD = 'payment/soisy/instalments';
 
+    const XML_PATH_INSTALMENTS_TABLE = 'payment/soisy/instalments_table';
+
     const XML_PATH_TERMS_AND_CONDITIONS = 'payment/soisy/terms_and_conditions';
 
     const XML_PATH_DESCRIPTION = 'payment/soisy/description';
@@ -118,9 +120,9 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $variables = array(
             '{INSTALMENT_AMOUNT}' => Mage::helper('core')->formatPrice($obj->instalmentAmount / 100, true),
-            '{INSTALMENT_PERIOD}' => $this->getInstalmentPeriod(),
+            '{INSTALMENT_PERIOD}' => $obj->instalmentPeriod,
             '{TOTAL_REPAID}' => Mage::helper('core')->formatPrice($obj->totalRepaid / 100, true),
-            '{UPFRONT_PAYMENT}' => Mage::helper('core')->formatPrice(($obj->amount - $obj->loanAmount) , true),
+            '{UPFRONT_PAYMENT}' => Mage::helper('core')->formatPrice(($obj->amount - $obj->loanAmount), true),
             '{TAEG}' => $obj->apr,
         );
 
@@ -180,8 +182,6 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     *
-     *
      * @param $amount
      * @return bool
      */
@@ -189,5 +189,38 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return ((Mage::getStoreConfig(self::XML_PATH_MIN_TOTAL, Mage::app()->getStore()) <= $amount)
             && ($amount <= Mage::getStoreConfig(self::XML_PATH_MAX_TOTAL, Mage::app()->getStore())));
+    }
+
+    /**
+     * Get instalment period from system config serialized array
+     * @param $amount
+     * @return int
+     */
+    public function getDefaultInstalmentPeriodByAmountFromTable($amount)
+    {
+        $instalmentTable = Mage::getStoreConfig(self::XML_PATH_INSTALMENTS_TABLE, Mage::app()->getStore());
+
+        if ($instalmentTable) {
+            $instalmentTable = unserialize($instalmentTable);
+            if (is_array($instalmentTable)) {
+                $lastItem = null;
+
+                usort($instalmentTable, function ($a, $b) {
+                    return $a['from_price'] - $b['from_price'];
+                });
+
+                for ($i = 0; $i < count($instalmentTable); $i++) {
+
+                    if (($instalmentTable[$i]['from_price'] <= $amount) && isset($instalmentTable[$i + 1]) && ($instalmentTable[$i + 1]['from_price'] > $amount)) {
+                        return (int)($instalmentTable[$i]['instalments']);
+                    } else {
+                        if (!isset($instalmentTable[$i + 1])) {
+                            return (int)($instalmentTable[$i]['instalments']);
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }
