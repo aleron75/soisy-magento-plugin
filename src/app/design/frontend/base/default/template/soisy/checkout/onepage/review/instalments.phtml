@@ -10,7 +10,7 @@
     <script type="application/javascript">
         if (checkout.accordion.currentSection == 'opc-review') {
             new soisyInstalmentBlock(
-                "<?php echo Mage::getModel('checkout/session')->getQuote()->getGrandTotal() ?>",
+                "<?php echo Mage::getModel('checkout/session')->getQuote()->getGrandTotal() * 100 ?>",
                 "<?php echo Mage::getUrl('soisy/loanQuote/amount') ?>",
                 "<?php echo Mage::getStoreConfig('payment/soisy/checkout_loan_quote_placement', Mage::app()->getStore()) ?>",
                 "payment/soisy/loan_quote_text_checkout"
