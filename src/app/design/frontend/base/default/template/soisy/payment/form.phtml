@@ -63,23 +63,13 @@
         </div>
     </li>
     <li>
-        <label for="soisy_region_id" class="required"><em>*</em><?php echo $this->__('State/Province') ?></label>
+        <label for="soisy_region_id" class="required"><em>*</em><?php echo $this->__('Province') ?></label>
         <div class="input-box">
-            <select id="soisy_region_id" name="payment[region_id]"
-                    title="<?php echo $this->helper('core')->quoteEscape($this->__('State/Province')) ?>"
-                    class="validate-select required-entry" style="display:none;">
-                <option value=""><?php echo $this->__('Please select region, state or province') ?></option>
-            </select>
-            <script type="text/javascript">
-                //<![CDATA[
-                $('soisy_region_id').setAttribute('defaultValue',  "<?php echo ($this->getAdditionalInformation('region_id')) ? $this->getAdditionalInformation('region_id') : $this->getBillingAddress()->getRegionId() ?>");
-                //]]>
-            </script>
             <input type="text" id="soisy_region" name="payment[province]"
-                   value="<?php echo $this->escapeHtml(($this->getAdditionalInformation('province')) ? $this->escapeHtml($this->getAdditionalInformation('province')) : $this->getBillingAddress()->getRegion()) ?>"
+                   value="<?php echo $this->escapeHtml(($this->getAdditionalInformation('province')) ? $this->escapeHtml($this->getAdditionalInformation('province')) : $this->getProvinceCode($this->getBillingAddress())) ?>"
                    title="<?php echo $this->helper('core')->quoteEscape($this->__('State/Province')) ?>"
                    class="input-text  required-entry<?php echo $this->helper('customer/address')->getAttributeValidationClass('region') ?>"
-                   style="display:none;"/>
+                   style="" size="2" maxlength="2"/>
         </div>
     </li>
     <li>
@@ -124,8 +114,3 @@
                    href="<?php echo $link ?>"><?php echo $this->__('Reed more') ?></a> <?php endif; ?></label>
     </li>
 </ul>
-<script type="text/javascript">
-    //<![CDATA[
-    var billingRegionUpdater = new RegionUpdater('billing:country_id', 'soisy_region', 'soisy_region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, 'soisy_postal_code');
-    //]]>
-</script>

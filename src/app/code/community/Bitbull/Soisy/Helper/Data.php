@@ -55,30 +55,6 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param Varien_Object $data
-     */
-    public function getRegionById(Varien_Object $data)
-    {
-        if ($regionId = $data->getRegionId()) {
-
-            return Mage::getModel('directory/region')->load($regionId)->getCode();
-        }
-    }
-
-    /**
-     * Get region by region code
-     * @param $code
-     * @return mixed
-     */
-    public function getRegionByCode($code)
-    {
-        if ($code) {
-
-            return Mage::getModel('directory/region')->loadByCode($code)->getId();
-        }
-    }
-
-    /**
      * Get billing address without civic number
      * @param $address
      * @return mixed

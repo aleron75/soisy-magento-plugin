@@ -65,6 +65,18 @@ class Bitbull_Soisy_Block_Form_Soisy extends Mage_Payment_Block_Form
     }
 
     /**
+     * @param Mage_Sales_Model_Order_Address $address
+     * @return string
+     */
+    public function getProvinceCode($address)
+    {
+        if (null === $address->getRegionCode()) {
+            return '';
+        }
+        return strtoupper(substr(trim($address->getRegionCode(), 0, 2)));
+    }
+
+    /**
      * Get name for payment method
      * @return string
      */
