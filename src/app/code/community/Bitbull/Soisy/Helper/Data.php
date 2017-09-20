@@ -111,6 +111,19 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * @param $obj
+     * @return mixed
+     */
+    public function formatResponseFromSoisyAPI($obj)
+    {
+        $obj->instalmentAmount = Mage::helper('core')->formatPrice($obj->instalmentAmount / 100, true);
+        $obj->totalRepaid = Mage::helper('core')->formatPrice($obj->totalRepaid / 100, true);
+        $obj->upfront = Mage::helper('core')->formatPrice(($obj->amount - $obj->loanAmount) / 100, true);
+
+        return $obj;
+    }
+
+    /**
      * Format output message for soisy product loan block
      * @param text
      * @param $obj
@@ -119,10 +132,10 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
     public function formatProductInfoLoanQuoteBlock($text, $obj)
     {
         $variables = array(
-            '{INSTALMENT_AMOUNT}' => Mage::helper('core')->formatPrice($obj->instalmentAmount / 100, true),
+            '{INSTALMENT_AMOUNT}' => $obj->instalmentAmount,
             '{INSTALMENT_PERIOD}' => $obj->instalmentPeriod,
-            '{TOTAL_REPAID}' => Mage::helper('core')->formatPrice($obj->totalRepaid / 100, true),
-            '{UPFRONT_PAYMENT}' => Mage::helper('core')->formatPrice(($obj->amount - $obj->loanAmount), true),
+            '{TOTAL_REPAID}' => $obj->totalRepaid,
+            '{UPFRONT_PAYMENT}' => $obj->upfront,
             '{TAEG}' => $obj->apr,
         );
 
@@ -153,7 +166,7 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function calculateAmountBasedOnPercentage($amount)
     {
-        return $amount - (($amount / 100) * Mage::getStoreConfig(self::XML_PATH_TOTAL_PERCENTAGE_OF_LOAN,
+        return $amount - ($amount / 100) * (Mage::getStoreConfig(self::XML_PATH_TOTAL_PERCENTAGE_OF_LOAN,
                     Mage::app()->getStore()));
     }
 
@@ -183,12 +196,29 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * @param $amount
+     * @return string
+     */
+    public function getInstalmentPeriodJson($amount)
+    {
+        $instalmentPeriodArray = explode(',',
+            Mage::getStoreConfig(self::XML_PATH_INSTALMENT_PERIOD, Mage::app()->getStore()));
+
+        $instalmentConfig = [
+            'preselected' => $this->getDefaultInstalmentPeriodByAmountFromTable($amount),
+            'options' => $instalmentPeriodArray
+        ];
+
+        return Mage::helper('core')->jsonEncode($instalmentConfig);
+    }
+
+    /**
+     * @param $amount
      * @return bool
      */
     public function checkIfAvailableBuyAmount($amount)
     {
-        return ((Mage::getStoreConfig(self::XML_PATH_MIN_TOTAL, Mage::app()->getStore()) <= $amount)
-            && ($amount <= Mage::getStoreConfig(self::XML_PATH_MAX_TOTAL, Mage::app()->getStore())));
+        return ((Mage::getStoreConfig(self::XML_PATH_MIN_TOTAL, Mage::app()->getStore()) * 100 <= $amount)
+            && ($amount <= (Mage::getStoreConfig(self::XML_PATH_MAX_TOTAL, Mage::app()->getStore()) * 100)));
     }
 
     /**
@@ -221,6 +251,5 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
                 }
             }
         }
-
     }
 }

@@ -9,6 +9,22 @@
         </li>
     <?php endif; ?>
     <li>
+        <label for="soisy_instalment" class="required"><em>*</em><?php echo $this->__('Instalments number') ?></label>
+        <div class="input-box">
+            <div class="v-fix">
+                <select id="soisy_instalment" name="payment[instalment]"
+                        title="<?php echo $this->helper('core')->quoteEscape($this->__('Instalments number')) ?>"
+                        class="validate-select required-entry">
+                    <option value=""><?php echo $this->__('Please select instalment') ?></option>
+                </select>
+            </div>
+            <div class="v-fix">
+                <p class="soisy_instalment_monthly_payment" style="padding-top: 3px;"></p>
+            </div>
+        </div>
+    </li>
+
+    <li>
         <label for="soisy_name" class="required"><em>*</em><?php echo $this->__('Name') ?></label>
         <div class="input-box">
             <input type="text" id="soisy_address" name="payment[name]"
@@ -127,5 +143,13 @@
 <script type="text/javascript">
     //<![CDATA[
     var billingRegionUpdater = new RegionUpdater('billing:country_id', 'soisy_region', 'soisy_region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, 'soisy_postal_code');
+    var soisyInstalmentSelector = new InstalmentSelector(
+        'soisy_instalment',
+        <?php echo $this->helper('soisy')->getInstalmentPeriodJson(Mage::getModel('checkout/session')->getQuote()->getGrandTotal()); ?> ,
+        "<?php echo Mage::getUrl('soisy/loanQuote/amountbyinstalment'); ?>" ,
+        "<?php echo Mage::getModel('checkout/session')->getQuote()->getGrandTotal() * 100; ?>",
+        '.soisy_instalment_monthly_payment',
+        "<?php echo __('per month.')?>"
+        );
     //]]>
 </script>
