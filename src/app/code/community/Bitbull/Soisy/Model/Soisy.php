@@ -50,7 +50,7 @@ class Bitbull_Soisy_Model_Soisy extends Mage_Payment_Model_Method_Abstract
             'mobilePhone' => $data->getMobilePhone(),
             'city' => $data->getCity(),
             'address' => $data->getAddress(),
-            'province' => ($regionCode = Mage::helper('soisy')->getRegionById($data)) ? $regionCode : $data->getRegion(),
+            'province' => strtoupper(substr(trim($data->getProvince()),0, 2)),
             'postalCode' => $data->getPostcode(),
             'civicNumber' => $data->getCivicNumber(),
         ];
