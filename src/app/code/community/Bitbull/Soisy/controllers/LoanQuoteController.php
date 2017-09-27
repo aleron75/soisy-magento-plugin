@@ -26,20 +26,20 @@ class Bitbull_Soisy_LoanQuoteController extends Mage_Core_Controller_Front_Actio
     public function amountAction()
     {
         if ($this->isAjax() && $this->getRequest()->getPost('amount')) {
-            $amount = $this->getRequest()->getPost('amount');
-            $instalments = Mage::helper('soisy')->getDefaultInstalmentPeriodByAmountFromTable($amount);
-            $loanAmount = Mage::helper('soisy')->calculateAmountBasedOnPercentage($amount);
-            $loanAmount = ($loanAmount) ? $loanAmount : $amount;
+            $amountInEurocents = $this->getRequest()->getPost('amount');
+            $loanAmountInEurocents = Mage::helper('soisy')->calculateAmountBasedOnPercentage($amountInEurocents);
+            $loanAmountInEurocents = ($loanAmountInEurocents) ? $loanAmountInEurocents : $amountInEurocents;
+            $instalments = Mage::helper('soisy')->getDefaultInstalmentPeriodByAmountFromTable($loanAmountInEurocents/100);
             $textPathStoreConfig = $this->getRequest()->getPost('text');
-            if (Mage::helper('soisy')->checkIfAvailableBuyAmount($loanAmount)) {
+            if (Mage::helper('soisy')->checkIfAvailableBuyAmount($loanAmountInEurocents)) {
                 $this->_client = Mage::helper('soisy')->getClient();
-                $amountResponse = $this->_client->getAmount(['amount' => $loanAmount, 'instalments' => $instalments]);
+                $amountInEurocentsResponse = $this->_client->getAmount(['amount' => $loanAmountInEurocents, 'instalments' => $instalments]);
 
-                if ($amountResponse && isset($amountResponse->{Mage::getStoreConfig('payment/soisy/information_about_loan')}) && $textPathStoreConfig) {
-                    $amountResponse->{Mage::getStoreConfig('payment/soisy/information_about_loan')}->loanAmount = $loanAmount;
-                    $amountResponse->{Mage::getStoreConfig('payment/soisy/information_about_loan')}->amount = $amount;
-                    $amountResponse->{Mage::getStoreConfig('payment/soisy/information_about_loan')}->instalmentPeriod = $instalments;
-                    $formatedResponse = Mage::helper('soisy')->formatResponseFromSoisyAPI($amountResponse->{Mage::getStoreConfig('payment/soisy/information_about_loan')});
+                if ($amountInEurocentsResponse && isset($amountInEurocentsResponse->{Mage::getStoreConfig('payment/soisy/information_about_loan')}) && $textPathStoreConfig) {
+                    $amountInEurocentsResponse->{Mage::getStoreConfig('payment/soisy/information_about_loan')}->loanAmount = $loanAmountInEurocents;
+                    $amountInEurocentsResponse->{Mage::getStoreConfig('payment/soisy/information_about_loan')}->amount = $amountInEurocents;
+                    $amountInEurocentsResponse->{Mage::getStoreConfig('payment/soisy/information_about_loan')}->instalmentPeriod = $instalments;
+                    $formatedResponse = Mage::helper('soisy')->formatResponseFromSoisyAPI($amountInEurocentsResponse->{Mage::getStoreConfig('payment/soisy/information_about_loan')});
                     $this->getResponse()
                         ->setBody(Mage::helper('soisy')->formatProductInfoLoanQuoteBlock(Mage::getStoreConfig($textPathStoreConfig, Mage::app()->getStore()),$formatedResponse));
                 }

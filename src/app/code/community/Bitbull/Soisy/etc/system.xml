@@ -125,7 +125,7 @@
                             <show_in_store>0</show_in_store>
                         </instalments>
                         <instalments_table>
-                            <label>Preselect instalments period based on amount</label>
+                            <label>Preselect instalments period based on loan amount</label>
                             <frontend_model>soisy/adminhtml_config_instalmentsTable</frontend_model>
                             <backend_model>soisy/system_config_backend_serialized_instalments</backend_model>
                             <sort_order>53</sort_order>
