@@ -29,7 +29,7 @@ class Bitbull_Soisy_LoanQuoteController extends Mage_Core_Controller_Front_Actio
             $amountInEurocents = $this->getRequest()->getPost('amount');
             $loanAmountInEurocents = Mage::helper('soisy')->calculateAmountBasedOnPercentage($amountInEurocents);
             $loanAmountInEurocents = ($loanAmountInEurocents) ? $loanAmountInEurocents : $amountInEurocents;
-            $instalments = Mage::helper('soisy')->getDefaultInstalmentPeriodByAmountFromTable($loanAmountInEurocents/100);
+            $instalments = Mage::helper('soisy')->getDefaultInstalmentPeriodByAmountFromTable($loanAmountInEurocents);
             $textPathStoreConfig = $this->getRequest()->getPost('text');
             if (Mage::helper('soisy')->checkIfAvailableBuyAmount($loanAmountInEurocents)) {
                 $this->_client = Mage::helper('soisy')->getClient();

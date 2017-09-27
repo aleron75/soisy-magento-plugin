@@ -73,7 +73,7 @@ class Bitbull_Soisy_Block_Form_Soisy extends Mage_Payment_Block_Form
         if (null === $address->getRegionCode()) {
             return '';
         }
-        return strtoupper(substr(trim($address->getRegionCode(), 0, 2)));
+        return strtoupper(substr(trim($address->getRegionCode()), 0, 2));
     }
 
     /**

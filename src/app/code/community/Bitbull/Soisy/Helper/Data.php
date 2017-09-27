@@ -217,7 +217,7 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
 
                 for ($i = 0; $i < count($instalmentTable); $i++) {
 
-                    if (($instalmentTable[$i]['from_price'] <= $amount) && isset($instalmentTable[$i + 1]) && ($instalmentTable[$i + 1]['from_price'] > $amount)) {
+                    if ((($instalmentTable[$i]['from_price'] * 100) <= $amount) && isset($instalmentTable[$i + 1]) && (($instalmentTable[$i + 1]['from_price'] * 100) > $amount)) {
                         return (int)($instalmentTable[$i]['instalments']);
                     } else {
                         if (!isset($instalmentTable[$i + 1])) {

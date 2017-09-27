@@ -134,7 +134,7 @@
     //<![CDATA[
     var soisyInstalmentSelector = new InstalmentSelector(
         'soisy_instalment',
-        <?php echo $this->helper('soisy')->getInstalmentPeriodJson(Mage::getModel('checkout/session')->getQuote()->getGrandTotal()); ?> ,
+        <?php echo $this->helper('soisy')->getInstalmentPeriodJson(Mage::getModel('checkout/session')->getQuote()->getGrandTotal() * 100); ?> ,
         "<?php echo Mage::getUrl('soisy/loanQuote/amountbyinstalment'); ?>" ,
         "<?php echo Mage::getModel('checkout/session')->getQuote()->getGrandTotal() * 100; ?>",
         '.soisy_instalment_monthly_payment',

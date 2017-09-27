@@ -90,7 +90,6 @@ InstalmentSelector.prototype = {
             },
             requestHeaders: {Accept: 'application/json'},
             onSuccess: function (transport) {
-                console.log(transport.responseJSON);
                 this.paymentAmount.first().innerHTML = transport.responseJSON.instalmentAmount + ' ' + this.amountText;
             }.bind(this)
         });
