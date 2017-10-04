@@ -70,6 +70,7 @@
 				<allowspecific>0</allowspecific>
 				<group>offline</group>
 				<instalments>12</instalments>
+				<zero_interest>0</zero_interest>
 				<min_order_total>250</min_order_total>
 				<max_order_total>20000</max_order_total>
 				<loan_quote_placement>price-box</loan_quote_placement>

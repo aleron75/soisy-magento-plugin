@@ -33,7 +33,12 @@ class Bitbull_Soisy_LoanQuoteController extends Mage_Core_Controller_Front_Actio
             $textPathStoreConfig = $this->getRequest()->getPost('text');
             if (Mage::helper('soisy')->checkIfAvailableBuyAmount($loanAmountInEurocents)) {
                 $this->_client = Mage::helper('soisy')->getClient();
-                $amountInEurocentsResponse = $this->_client->getAmount(['amount' => $loanAmountInEurocents, 'instalments' => $instalments]);
+                $amountInEurocentsResponse = $this->_client->getAmount(
+                    [
+                        'amount' => $loanAmountInEurocents,
+                        'instalments' => $instalments,
+                        'zeroInterestRate' => Mage::helper('soisy')->isZeroInterestRate()
+                    ]);
 
                 if ($amountInEurocentsResponse && isset($amountInEurocentsResponse->{Mage::getStoreConfig('payment/soisy/information_about_loan')}) && $textPathStoreConfig) {
                     $amountInEurocentsResponse->{Mage::getStoreConfig('payment/soisy/information_about_loan')}->loanAmount = $loanAmountInEurocents;
@@ -61,7 +66,8 @@ class Bitbull_Soisy_LoanQuoteController extends Mage_Core_Controller_Front_Actio
                 $this->_client = Mage::helper('soisy')->getClient();
                 $amountResponse = $this->_client->getAmount([
                     'amount' => $loanAmount ,
-                    'instalments' => $instalments
+                    'instalments' => $instalments,
+                    'zeroInterestRate' => Mage::helper('soisy')->isZeroInterestRate()
                 ]);
 
                 if ($amountResponse && isset($amountResponse->{Mage::getStoreConfig('payment/soisy/information_about_loan')})) {

@@ -16,6 +16,8 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
 
     const XML_PATH_LOAN_CONFIGURE = 'payment/soisy/information_about_loan';
 
+    const XML_PATH_ZERO_INTEREST = 'payment/soisy/zero_interest';
+
     const XML_PATH_INSTALMENT_PERIOD = 'payment/soisy/instalments';
 
     const XML_PATH_INSTALMENTS_TABLE = 'payment/soisy/instalments_table';
@@ -37,6 +39,16 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
     public function isEnabled($store = null)
     {
         return Mage::getStoreConfigFlag(self::XML_PATH_ENABLE_SEARCH, $store);
+    }
+
+    /**
+     * Check if Zero Interest rate is enable
+     * @param null $store
+     * @return bool
+     */
+    public function isZeroInterestRate($store = null)
+    {
+        return Mage::getStoreConfigFlag(self::XML_PATH_ZERO_INTEREST, $store);
     }
 
     /**
@@ -143,7 +155,7 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
     public function calculateAmountBasedOnPercentage($amount)
     {
         return $amount - ($amount / 100) * (Mage::getStoreConfig(self::XML_PATH_TOTAL_PERCENTAGE_OF_LOAN,
-                    Mage::app()->getStore()));
+                Mage::app()->getStore()));
     }
 
     public function getInstalmentMaxAndMinPeriod()
