@@ -53,6 +53,7 @@ class Bitbull_Soisy_Model_Soisy extends Mage_Payment_Model_Method_Abstract
             'province' => strtoupper(substr(trim($data->getProvince()),0, 2)),
             'postalCode' => $data->getPostcode(),
             'civicNumber' => $data->getCivicNumber(),
+            'instalments' => $data->getInstalment(),
             'zeroInterestRate' => Mage::helper('soisy')->isZeroInterestRate()
         ];
 

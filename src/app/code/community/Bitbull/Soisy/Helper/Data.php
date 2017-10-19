@@ -48,7 +48,7 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isZeroInterestRate($store = null)
     {
-        return Mage::getStoreConfigFlag(self::XML_PATH_ZERO_INTEREST, $store);
+        return (Mage::getStoreConfigFlag(self::XML_PATH_ZERO_INTEREST, $store)) ? "true" : "false";
     }
 
     /**
