@@ -12,16 +12,29 @@ class Bitbull_Soisy_Client
     /**
      * Base url for API calls
      *
-     * @var string
+     * @var array
      */
-    protected $_apiBaseUrl = 'http://api.sandbox.soisy.it/api/shops';
+    protected $_apiBaseUrlArray = [
+        1 => 'http://api.sandbox.soisy.it/api/shops',
+        0 => 'https://api.soisy.it/api/shops'
+    ];
 
     /**
      * Base url for Soisy webapp
      *
-     * @var string
+     * @var array
     */
-    protected $_webappBaseUrl = 'http://shop.sandbox.soisy.it';
+    protected $_webappBaseUrlArray = [
+        1 => 'http://shop.sandbox.soisy.it',
+        0 =>'https://shop.soisy.it'
+    ];
+
+    /**
+     * Sandbox mode on/of
+     *
+     * @var bool
+     */
+    protected $_sandboxMode;
 
     /**
      * API key
@@ -67,13 +80,14 @@ class Bitbull_Soisy_Client
      * @param string $shopId
      * @param string $apiKey
      * @param Bitbull_Soisy_Log_LoggerInterface $logger
+     * @param bool $sandboxMode
     */
-    public function __construct($shopId, $apiKey, Bitbull_Soisy_Log_LoggerInterface $logger)
+    public function __construct($shopId, $apiKey, Bitbull_Soisy_Log_LoggerInterface $logger, $sandboxMode)
     {
-        $this->_shopId = $shopId;
-        $this->_apiKey = $apiKey;
-
-        $this->_logger = $logger;
+        $this->_shopId  = $shopId;
+        $this->_apiKey  = $apiKey;
+        $this->_logger  = $logger;
+        $this->_sandboxMode = $sandboxMode;
     }
 
     /**
@@ -218,13 +232,13 @@ class Bitbull_Soisy_Client
     */
     protected function _buildUrl($path, $params)
     {
-        if (filter_var($this->_apiBaseUrl, FILTER_VALIDATE_URL) === false) {
-            $message = 'API base URL missing or invalid: "' . $this->_apiBaseUrl . '"';
+        if (filter_var($this->_getApiUrl(), FILTER_VALIDATE_URL) === false) {
+            $message = 'API base URL missing or invalid: "' . $this->_getApiUrl() . '"';
 
             throw new Bitbull_Soisy_Exception($message, 0);
         }
 
-        $url = $this->_apiBaseUrl . '/' . $this->_shopId . $path;
+        $url = $this->_getApiUrl() . '/' . $this->_shopId . $path;
 
         $queryString = [];
 
@@ -235,5 +249,25 @@ class Bitbull_Soisy_Client
         $url .= '?' . implode('&', $queryString);
 
         return $url;
+    }
+
+    /**
+     * Get redirect url
+     *
+     * @return mixed|null
+     */
+    protected function _getRedirectUrl()
+    {
+        return ($this->_webappBaseUrlArray[$this->_sandboxMode]) ? $this->_webappBaseUrlArray[$this->_sandboxMode] : $this->_webappBaseUrlArray[0];
+    }
+
+    /**
+     * Get API url
+     *
+     * @return mixed
+     */
+    protected function _getApiUrl()
+    {
+        return ($this->_apiBaseUrlArray[$this->_sandboxMode]) ? $this->_apiBaseUrlArray[$this->_sandboxMode] : $this->_apiBaseUrlArray[0];
     }
 }

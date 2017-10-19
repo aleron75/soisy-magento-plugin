@@ -34,6 +34,8 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
 
     const XML_PATH_MAX_TOTAL = 'payment/soisy/max_order_total';
 
+    const XML_PATH_MAX_SANDBOX_MODE = 'payment/soisy/sandbox_mode';
+
     const PATTERN = "/^([-\p{L}.'0-9 ]*?)(?: ([0-9]*))?$/u";
 
     public function isEnabled($store = null)
@@ -60,10 +62,10 @@ class Bitbull_Soisy_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $apiKey = Mage::getStoreConfig(self::XML_PATH_API_KEY);
         $shopId = Mage::getStoreConfig(self::XML_PATH_SHOP_ID);
-
+        $sandboxMode = (int)Mage::getStoreConfig(self::XML_PATH_MAX_SANDBOX_MODE);
         $logger = Mage::helper('soisy/log');
 
-        $client = new Bitbull_Soisy_Client($shopId, $apiKey, $logger);
+        $client = new Bitbull_Soisy_Client($shopId, $apiKey, $logger, $sandboxMode);
 
         return $client;
     }
