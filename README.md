@@ -1,5 +1,7 @@
 # magento-plugin
 
+## [0.5.1]
+- fix sandbox redirect url
 
 ## [0.5.0]
 - Implemented sandbox/production mode switch
