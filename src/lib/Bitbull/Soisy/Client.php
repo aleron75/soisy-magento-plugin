@@ -125,7 +125,7 @@ class Bitbull_Soisy_Client
     */
     public function getRedirectUrl($token)
     {
-        return $this->_getRedirectUrl() . '/' . $this->_shopId . '#/loan-request-and-quote?token=' . $token;
+        return $this->_getRedirectUrl() . '/' . $this->_shopId . '#/loan-request?token=' . $token;
     }
 
     /**

@@ -1,5 +1,8 @@
 # magento-plugin
 
+## [0.5.2]
+- adjust redirect url
+
 ## [0.5.1]
 - fix sandbox redirect url
 
