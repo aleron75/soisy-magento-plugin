@@ -1,5 +1,8 @@
 # magento-plugin
 
+## [0.5.3]
+- add localization
+
 ## [0.5.2]
 - adjust redirect url
 

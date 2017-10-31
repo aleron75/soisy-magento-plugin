@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Bitbull_Soisy>
-			<version>0.5.2</version>
+			<version>0.5.3</version>
 		</Bitbull_Soisy>
 	</modules>
 	<global>
@@ -57,7 +57,28 @@
 				</args>
 			</soisy>
 		</routers>
+		<translate>
+			<modules>
+				<Bitbull_Soisy>
+					<files>
+						<default>Bitbull_Soisy.csv</default>
+					</files>
+				</Bitbull_Soisy>
+			</modules>
+		</translate>		
 	</frontend>
+    <adminhtml>
+		<translate>
+			<modules>
+				<Bitbull_Soisy>
+					<files>
+						<default>Bitbull_Soisy.csv</default>
+					</files>
+				</Bitbull_Soisy>
+			</modules>
+		</translate>		
+	</adminhtml>
+    
 	<default>
 		<payment>
 			<soisy>

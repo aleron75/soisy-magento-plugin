@@ -6,3 +6,4 @@ src/app/design/frontend/base/default/layout/soisy.xml   app/design/frontend/base
 src/lib/Bitbull/Soisy   lib/Bitbull/Soisy
 src/js/soisy    js/soisy
 src/skin/frontend/base/default/images/soisy     skin/frontend/base/default/images/soisy
+src/app/locale/it_IT/Bitbull_Soisy.csv  app/locale/it_IT/Bitbull_Soisy.csv
