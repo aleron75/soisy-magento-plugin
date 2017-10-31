@@ -1,5 +1,8 @@
 # magento-plugin
 
+## [0.5.4]
+- fix some translations
+
 ## [0.5.3]
 - add localization
 
