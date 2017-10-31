@@ -125,7 +125,7 @@
                         </specificcountry>
                         <instalments translate="label comment">
                             <label>Instalments</label>
-                            <comment><![CDATA[Choose from 3 to 60]]></comment>
+                            <comment><![CDATA[Choose one or more values]]></comment>
                             <frontend_type>multiselect</frontend_type>
                             <source_model>soisy/system_config_source_instalment</source_model>
                             <sort_order>52</sort_order>
@@ -149,7 +149,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Choose a HTML class to append Loan Quote block in product page</comment>
+                            <comment><![CDATA[Choose a CSS class to append Loan Quote block in product page]]></comment>
                         </loan_quote_placement>
                         <loan_quote_text_product>
                             <label>Text for product page loan quote block</label>
@@ -158,7 +158,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Provide text for Product page loan quote block with placeholders for variables {INSTALMENT_AMOUNT},{INSTALMENT_PERIOD},{TOTAL_REPAID},{TAEG},{UPFRONT_PAYMENT} </comment>
+                            <comment><![CDATA[Provide text for Product page loan quote block with placeholders for variables {INSTALMENT_AMOUNT},{INSTALMENT_PERIOD},{TOTAL_REPAID},{TAEG},{UPFRONT_PAYMENT}]]></comment>
                         </loan_quote_text_product>
                         <cart_loan_quote_placement translate="label">
                             <label>Cart loan quote block placement class</label>
@@ -167,7 +167,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Choose a HTML class to append Loan Quote block in cart page</comment>
+                            <comment><![CDATA[Choose a CSS class to append Loan Quote block in cart page]]></comment>
                         </cart_loan_quote_placement>
                         <loan_quote_text_cart>
                             <label>Text for cart page loan quote block</label>
@@ -176,7 +176,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Provide text for Cart page loan quote block with placeholders for variables {INSTALMENT_AMOUNT},{INSTALMENT_PERIOD},{TOTAL_REPAID},{TAEG},{UPFRONT_PAYMENT} </comment>
+                            <comment><![CDATA[Provide text for Cart page loan quote block with placeholders for variables {INSTALMENT_AMOUNT},{INSTALMENT_PERIOD},{TOTAL_REPAID},{TAEG},{UPFRONT_PAYMENT}]]></comment>
                         </loan_quote_text_cart>
                         <checkout_loan_quote_placement translate="label">
                             <label>Checkout loan quote block placement class</label>
@@ -185,9 +185,8 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Choose a HTML class to append Loan Quote block in checkout review section</comment>
+                            <comment><![CDATA[Choose a CSS class to append Loan Quote block in checkout review section]]></comment>
                         </checkout_loan_quote_placement>
-
                         <loan_quote_text_checkout>
                             <label>Text for checkout page loan quote block</label>
                             <frontend_type>textarea</frontend_type>
@@ -195,7 +194,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>Provide text for Checkout page loan quote block with placeholders for variables {INSTALMENT_AMOUNT},{INSTALMENT_PERIOD},{TOTAL_REPAID},{TAEG},{UPFRONT_PAYMENT} </comment>
+                            <comment><![CDATA[Provide text for Checkout page loan quote block with placeholders for variables {INSTALMENT_AMOUNT},{INSTALMENT_PERIOD},{TOTAL_REPAID},{TAEG},{UPFRONT_PAYMENT}]]></comment>
                         </loan_quote_text_checkout>
                         <information_about_loan  translate="label">
                             <label>Information about loan</label>
@@ -239,7 +238,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </sort_order>
-                        <force_log>
+                        <force_log translate="label comment">
                             <label>Force logging</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
@@ -247,10 +246,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>
-                                <![CDATA[Force logging to {{base_dir}}/var/log/soisy_payment.log even when logging is disabled]]></comment>
+                            <comment><![CDATA[Force logging to {{base_dir}}/var/log/soisy_payment.log even when logging is disabled]]></comment>
                         </force_log>
-                        <debug_mode>
+                        <debug_mode translate="label comment">
                             <label>Debug mode</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
