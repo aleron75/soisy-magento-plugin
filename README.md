@@ -1,5 +1,8 @@
 # magento-plugin
 
+## [0.5.5]
+- add missing translation on exception
+
 ## [0.5.4]
 - fix some translations
 
