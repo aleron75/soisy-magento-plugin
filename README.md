@@ -1,5 +1,8 @@
 # magento-plugin
 
+## [0.5.6]
+- change translation mechanism of field exception
+
 ## [0.5.5]
 - add missing translation on exception
 

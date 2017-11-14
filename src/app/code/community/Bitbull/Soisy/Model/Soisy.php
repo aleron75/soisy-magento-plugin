@@ -71,7 +71,14 @@ class Bitbull_Soisy_Model_Soisy extends Mage_Payment_Model_Method_Abstract
                 ->setAdditionalInformation($params);
         } else {
             if ($tokenResponse->getErrorFromSoisy()) {
-                Mage::throwException(Mage::helper('payment')->__('Error in %s field', $tokenResponse->getErrorFromSoisy()));
+                $msg = 'Error in %s field';
+
+                $field = $tokenResponse->getErrorFromSoisy();
+                if (in_array($field, ['amount', 'address', 'civicNumber', 'postalCode', 'city', 'province', 'firstname',
+                    'lastname', 'email', 'mobilePhone', 'postalCode', 'fiscalCode',])) {
+                    $msg = sprintf($msg, $field);
+                }
+                Mage::throwException(Mage::helper('payment')->__($msg));
             } else {
                 $this->_client->_logger->log('Error while trying to complete payment');
                 Mage::throwException(Mage::helper('payment')->__('Error while trying to complete payment'));
