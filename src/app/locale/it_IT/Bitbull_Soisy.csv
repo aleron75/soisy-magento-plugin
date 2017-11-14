@@ -3,6 +3,7 @@
 "Add","Aggiungi"
 "&nbsp; Pay with Soisy: upfront of %s + %s installments","&nbsp; Paga con Soisy: acconto di %s + %s rate"
 "&nbsp; Pay with Soisy:  %s installments","&nbsp; Paga con Soisy:  %s rate"
+"Error in %s field","Il campo %s contiene un errore"
 "Error while trying to complete payment","Si è verificato un errore durante il processo di pagamento"
 "You should add minimum amount %s in Instalments table","È necessario specificare la somma minima %s nella tabella delle rate"
 "Fiscal Code:","Codice fiscale:"
