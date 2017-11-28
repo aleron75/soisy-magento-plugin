@@ -1,5 +1,8 @@
 # magento-plugin
 
+## [0.5.7]
+- fix some logging calls
+
 ## [0.5.6]
 - change translation mechanism of field exception
 
