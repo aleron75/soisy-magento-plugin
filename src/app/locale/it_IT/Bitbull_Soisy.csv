@@ -72,3 +72,4 @@
 "Provide text for Checkout page loan quote block with placeholders for variables {INSTALMENT_AMOUNT},{INSTALMENT_PERIOD},{TOTAL_REPAID},{TAEG},{UPFRONT_PAYMENT}","Inserire il testo del blocco preventivo prestito della pagina checkout; è possibile utilizzare i seguenti segnaposto: {INSTALMENT_AMOUNT},{INSTALMENT_PERIOD},{TOTAL_REPAID},{TAEG},{UPFRONT_PAYMENT}"
 "Force logging to {{base_dir}}/var/log/soisy_payment.log even when logging is disabled","Forza la scrittura delle informazioni di log in {{base_dir}}/var/log/soisy_payment.log anche se disabilitato a livello globale"
 "Enable more verbose logging for debug purpose","Aumenta le informazioni di debug nel file di log"
+"Impossible to connect to Soisy service","Impossibile connettersi a Soisy"

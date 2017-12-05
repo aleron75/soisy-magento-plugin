@@ -1,5 +1,8 @@
 # magento-plugin
 
+## [0.5.9]
+- fixed error handling
+
 ## [0.5.8]
 - add defensive checks and logging
 

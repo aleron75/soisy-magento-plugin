@@ -61,7 +61,11 @@ class Bitbull_Soisy_Model_Soisy extends Mage_Payment_Model_Method_Abstract
             $params['vatId'] = $data->getVatId();
         }
 
-        $tokenResponse = $this->_client->getToken($params);
+        try {
+            $tokenResponse = $this->_client->getToken($params);
+        } catch (Bitbull_Soisy_Exception $exception) {
+            throw new Mage_Payment_Exception(__('Impossible to connect to Soisy service'));
+        }
 
         if ($tokenResponse->getToken()) {
             Mage::helper('soisy')->setNewOrderTemplate();

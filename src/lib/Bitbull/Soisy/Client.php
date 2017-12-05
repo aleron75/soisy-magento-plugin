@@ -1,9 +1,10 @@
 <?php
+
 /**
  * @category Bitbull
  * @package  Bitbull_Soisy
  * @author   Gennaro Vietri <gennaro.vietri@bitbull.it>
-*/
+ */
 class Bitbull_Soisy_Client
 {
     const HTTP_METHOD_GET = 'GET';
@@ -23,10 +24,10 @@ class Bitbull_Soisy_Client
      * Base url for Soisy webapp
      *
      * @var array
-    */
+     */
     protected $_webappBaseUrlArray = [
         1 => 'http://shop.sandbox.soisy.it',
-        0 =>'https://shop.soisy.it'
+        0 => 'https://shop.soisy.it'
     ];
 
     /**
@@ -68,12 +69,12 @@ class Bitbull_Soisy_Client
 
     /**
      * @var stdClass
-    */
+     */
     protected $_response = null;
 
     /**
      * @var Bitbull_Soisy_Log_LoggerInterface
-    */
+     */
     protected $_logger;
 
     /**
@@ -81,12 +82,12 @@ class Bitbull_Soisy_Client
      * @param string $apiKey
      * @param Bitbull_Soisy_Log_LoggerInterface $logger
      * @param bool $sandboxMode
-    */
+     */
     public function __construct($shopId, $apiKey, Bitbull_Soisy_Log_LoggerInterface $logger, $sandboxMode)
     {
-        $this->_shopId  = $shopId;
-        $this->_apiKey  = $apiKey;
-        $this->_logger  = $logger;
+        $this->_shopId = $shopId;
+        $this->_apiKey = $apiKey;
+        $this->_logger = $logger;
         $this->_sandboxMode = $sandboxMode;
     }
 
@@ -122,7 +123,7 @@ class Bitbull_Soisy_Client
      *
      * @param string $token
      * @return string
-    */
+     */
     public function getRedirectUrl($token)
     {
         return $this->_getRedirectUrl() . '/' . $this->_shopId . '#/loan-request?token=' . $token;
@@ -137,7 +138,7 @@ class Bitbull_Soisy_Client
      * @param int $timeout
      * @return stdClass
      * @throws Bitbull_Soisy_Exception
-    */
+     */
     protected function _doRequest($path, $httpMethod = self::HTTP_METHOD_GET, $params = [], $timeout = null)
     {
         $url = $this->_buildUrl($path, $params);
@@ -163,7 +164,7 @@ class Bitbull_Soisy_Client
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 
-        $output = curl_exec($ch);
+        $output = json_decode(curl_exec($ch));
         $httpStatusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $error = curl_error($ch);
         $errorNumber = curl_errno($ch);
@@ -175,12 +176,14 @@ class Bitbull_Soisy_Client
         $this->_logger->debug("Curl Error Numbre: " . $errorNumber);
         $this->_logger->debug("Raw response: " . print_r($output, true));
 
-        if (false === $output) {
-            
+        if ($this->_isInvalidResponse($output)) {
             throw new Bitbull_Soisy_Exception('cURL error = ' . $error, $errorNumber);
+        }
 
-        } else if ($httpStatusCode != 200) {
-
+        if (200 != $httpStatusCode) {
+            if ($this->_isInvalidErrorResponse($output)) {
+                throw new Bitbull_Soisy_Exception('Empty error response');
+            }
             $validationMessages = [];
             switch ($httpStatusCode) {
                 case 400:
@@ -196,26 +199,17 @@ class Bitbull_Soisy_Client
             $e->setValidationMessages($validationMessages);
 
             return $e->getValidationMessages();
-
-        } else {
-            $response = json_decode($output);
-
-            return $response;
         }
+
+        return $output;
     }
 
     /**
-     * @param string $rawResponse
+     * @param string $response
      * @return array
-    */
-    protected function _parseValidationMessages($rawResponse)
+     */
+    protected function _parseValidationMessages($response)
     {
-        $response = json_decode($rawResponse);
-
-        if ($this->isInvalidResponse($response)) {
-            return ['Generic error'];
-        }
-
         $validationMessages = [];
         foreach ($response->errors as $field => $errors) {
             foreach ($errors as $error) {
@@ -226,11 +220,23 @@ class Bitbull_Soisy_Client
         return $validationMessages;
     }
 
-    protected function isInvalidResponse($response)
+    /**
+     * @param $response
+     * @return bool
+     */
+    protected function _isInvalidErrorResponse($response)
     {
-        return !is_object($response)
-            || (!isset($response->errors))
-            || !is_array($response->errors);
+        return (!isset($response->errors));
+    }
+
+    /**
+     * @param $response
+     * @return bool
+     */
+    protected function _isInvalidResponse($response)
+    {
+        return empty($response)
+            || !is_object($response);
     }
 
     /**
@@ -240,7 +246,7 @@ class Bitbull_Soisy_Client
      * @param array $params
      * @return string
      * @throws Bitbull_Soisy_Exception
-    */
+     */
     protected function _buildUrl($path, $params)
     {
         if (filter_var($this->_getApiUrl(), FILTER_VALIDATE_URL) === false) {
