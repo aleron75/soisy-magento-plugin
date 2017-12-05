@@ -1,5 +1,8 @@
 # magento-plugin
 
+## [0.5.8]
+- add defensive checks and logging
+
 ## [0.5.7]
 - fix some logging calls
 

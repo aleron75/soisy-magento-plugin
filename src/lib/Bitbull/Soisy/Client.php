@@ -170,6 +170,9 @@ class Bitbull_Soisy_Client
 
         curl_close($ch);
 
+        $this->_logger->debug("HTTP Status Code: " . $httpStatusCode);
+        $this->_logger->debug("Curl Error: " . $error);
+        $this->_logger->debug("Curl Error Numbre: " . $errorNumber);
         $this->_logger->debug("Raw response: " . print_r($output, true));
 
         if (false === $output) {
@@ -207,19 +210,27 @@ class Bitbull_Soisy_Client
     */
     protected function _parseValidationMessages($rawResponse)
     {
-        $validationMessages = [];
-
         $response = json_decode($rawResponse);
 
-        if ($response->errors) {
-            foreach ($response->errors as $field => $errors) {
-                foreach ($errors as $error) {
-                    $validationMessages[] = $field . ': ' . $error;
-                }
+        if ($this->isInvalidResponse($response)) {
+            return ['Generic error'];
+        }
+
+        $validationMessages = [];
+        foreach ($response->errors as $field => $errors) {
+            foreach ($errors as $error) {
+                $validationMessages[] = $field . ': ' . $error;
             }
         }
 
         return $validationMessages;
+    }
+
+    protected function isInvalidResponse($response)
+    {
+        return !is_object($response)
+            || (!isset($response->errors))
+            || !is_array($response->errors);
     }
 
     /**
