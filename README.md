@@ -1,5 +1,8 @@
 # magento-plugin
 
+## [0.5.10]
+- fixed error on query string
+
 ## [0.5.9]
 - fixed error handling
 
