@@ -257,13 +257,7 @@ class Bitbull_Soisy_Client
 
         $url = $this->_getApiUrl() . '/' . $this->_shopId . $path;
 
-        $queryString = [];
-
-        foreach ($params as $key => $value) {
-            $queryString[] = $key . '=' . $value;
-        }
-
-        $url .= '?' . implode('&', $queryString);
+        $url .= '?' . http_build_query($params, '', '&', PHP_QUERY_RFC3986);
 
         return $url;
     }
