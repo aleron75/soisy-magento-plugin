@@ -1,5 +1,8 @@
 # magento-plugin
 
+## [0.5.11]
+- fixed create-package.sh script
+
 ## [0.5.10]
 - fixed error on query string
 

@@ -7,7 +7,7 @@ fi
 
 # Extract version number from config.xml
 configFile=./src/app/code/community/Bitbull/Soisy/etc/config.xml
-versionNumber=$(cat $configFile | grep -Po '(?<=version>)\d.\d.\d')
+versionNumber=$(cat $configFile | grep -Po '(?<=version>)\d+.\d+.\d+')
 #echo $versionNumber
 
 # Create archive
