@@ -1,4 +1,7 @@
 # magento-plugin
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
+**DISCLAIMER:** this repository is unmantained, please refer direclty to official Soisy repositories: https://github.com/soisy
 
 ## [0.5.11]
 - fixed create-package.sh script
